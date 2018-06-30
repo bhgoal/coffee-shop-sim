@@ -1,8 +1,7 @@
 {
-  "name": "mern",
+  "name": "coffee-shop-sim",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "server": "node server.js",
     "client": "node scripts/start-client.js",
@@ -12,8 +11,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "installDeps": "yarn && cd client && yarn"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": "git@github.com:bhgoal/coffee-shop-sim.git",
+  "author": "gorbasho <37026147+gorbasho@users.noreply.github.com>",
+  "license": "MIT",
   "devDependencies": {
     "concurrently": "^3.5.0",
     "nodemon": "^1.11.0"
