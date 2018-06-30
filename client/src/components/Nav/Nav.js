@@ -1,8 +1,10 @@
 import React from "react";
 import "./Nav.css";
 
-const Nav = () =>
-  
+
+
+const Nav = props => (
+
   <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
     <a className="navbar-brand" href="/">NY Times Article Search</a>
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,8 +18,17 @@ const Nav = () =>
         <li className="nav-item">
           <a className="nav-link" href="/saved">Saved</a>
         </li>
+        <li className="nav-item">
+          {
+            props.auth.isAuthenticated() ?
+              (<a className="nav-link" href="/" onClick={(event) => (event.preventDefault(), props.auth.logout())}>Log out</a>)
+            :
+              (<a className="nav-link" href="/" onClick={(event) => (event.preventDefault(), props.auth.login())}>Log in</a>)
+          }
+        </li>
       </ul>
     </div>
-  </nav>;
+  </nav>
+);
 
 export default Nav;
