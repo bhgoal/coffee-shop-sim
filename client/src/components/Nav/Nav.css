@@ -1,0 +1,7 @@
+.navbar-brand {
+    margin-left: 0!important;
+}
+
+.noLink:hover {
+    cursor: initial;
+}

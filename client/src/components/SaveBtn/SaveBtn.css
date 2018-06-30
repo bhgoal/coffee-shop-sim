@@ -1,0 +1,9 @@
+.btn-saveBtn {
+  float: right;
+  color: white;
+  background-color: #e74944;
+}
+
+.btn-saveBtn:hover {
+  cursor: pointer;
+}
