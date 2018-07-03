@@ -77,14 +77,7 @@ class Articles extends Component {
   }
 
   handleClick = action => {
-    API.saveArticle({
-      action: action,
-    })
-      .then(res =>
-        this.setState({ 
-          articles: res.data
-        }))
-      .catch(err => console.log(err));
+    console.log(action);
   };
 
   render() {
