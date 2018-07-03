@@ -19,6 +19,10 @@ class Articles extends Component {
     endYear: ""
   };
 
+  componentDidMount() {
+    this.loadDrinks();
+  }
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -28,7 +32,7 @@ class Articles extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.topic && this.state.startYear && this.state.endYear) {
+    if (this.state.topic && this.state.startYear) {
       const baseURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
 
       // Begin building an object to contain our API call's query parameters
@@ -52,29 +56,34 @@ class Articles extends Component {
       }
 
       // Logging the URL so we have access to it for troubleshooting
-      console.log("---------------\nURL: " + baseURL + "\n---------------");
+      console.log(this.state.topic);
       console.log(baseURL + queryParams);
       const queryURL = baseURL + queryParams;
 
-      API.runSearch(queryURL)
-        .then(res =>
-        this.setState({ 
-          articles: res.data.response.docs,
-          topic: "",
-          startYear: "",
-          endYear: ""
-        }))
+      API.saveArticle({
+        name: this.state.topic,
+        ingredients: this.state.startYear
+      })
+        .then(this.loadDrinks())
         .catch(err => console.log(err));
     }
   };
 
-  handleSaveArticle = article => {
+  loadDrinks = () => {
+    API.getArticles().then(res =>
+      this.setState({ 
+        articles: res.data
+      }))
+  }
+
+  handleClick = action => {
     API.saveArticle({
-      title: article.headline.main,
-      date: article.pub_date,
-      url: article.web_url
+      action: action,
     })
-      .then(res => this.loadArticles())
+      .then(res =>
+        this.setState({ 
+          articles: res.data
+        }))
       .catch(err => console.log(err));
   };
 
@@ -84,14 +93,13 @@ class Articles extends Component {
         <Row>
           <Col size="md-6">
               <Jumbotron>
-                <h1><del>NY Times Article Search</del></h1>
                 <h1>Coffee Shop Sim!</h1>
               </Jumbotron>
             <Row>
               <Col size="md-6">
                 Actions
                 <div><button onClick={() => (
-                  this.handleClick()
+                  this.handleClick("Pull shot")
         )} type="button" className="btn btn-sm btn-saveBtn">Pull shot</button></div>
         <div><button onClick={() => (
                   this.handleClick()
@@ -102,6 +110,26 @@ class Articles extends Component {
               </Col>
               <Col size="md-6">
                 Drink
+                <form>
+              <Input
+                value={this.state.topic}
+                onChange={this.handleInputChange}
+                name="topic"
+                placeholder="Name (required)"
+              />
+              <Input
+                value={this.state.startYear}
+                onChange={this.handleInputChange}
+                name="startYear"
+                placeholder="Ingredients (required)"
+              />
+              <FormBtn
+                disabled={!(this.state.topic && this.state.startYear)}
+                onClick={this.handleFormSubmit}
+              >
+                Submit Order
+              </FormBtn>
+            </form>
               </Col>
             </Row>
           </Col>
@@ -111,7 +139,10 @@ class Articles extends Component {
             </Jumbotron>
             {this.state.articles.length ? (
               <List>
-                {this.state.articles.slice(0, 5).map(article => (
+                {this.state.articles.map(article => (
+                  <div>{article.name}, {article.ingredients}</div>
+                ))}
+                {/* {this.state.articles.slice(0, 5).map(article => (
                   <ListItem key={article._id}>
                     <SaveBtn handleSaveArticle={this.handleSaveArticle} article={article} />
                     <span>
@@ -124,7 +155,7 @@ class Articles extends Component {
                       </strong>
                     </Link>
                   </ListItem>
-                ))}
+                ))} */}
               </List>
             ) : (
               <h3>No Results to Display</h3>

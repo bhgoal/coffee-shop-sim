@@ -6,7 +6,7 @@ import "./Nav.css";
 const Nav = props => (
 
   <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a className="navbar-brand" href="/">NY Times Article Search</a>
+    <a className="navbar-brand" href="/">Coffee Shop Sim!</a>
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
     </button>
@@ -16,7 +16,7 @@ const Nav = props => (
           <a className="nav-link" href="/">Search</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/saved">Saved</a>
+          <a className="nav-link disabled" href="#">Saved</a>
         </li>
         <li className="nav-item">
           {
