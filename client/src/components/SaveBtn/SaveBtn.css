@@ -1,7 +1,8 @@
 .btn-saveBtn {
-  float: right;
   color: white;
   background-color: #e74944;
+  margin: 5px;
+  width: 80px;
 }
 
 .btn-saveBtn:hover {

@@ -83,39 +83,31 @@ class Articles extends Component {
       <Container fluid>
         <Row>
           <Col size="md-6">
-            <Jumbotron>
-              <h1>NY Times Article Search</h1>
-            </Jumbotron>
-            <form>
-              <Input
-                value={this.state.topic}
-                onChange={this.handleInputChange}
-                name="topic"
-                placeholder="Topic (required)"
-              />
-              <Input
-                value={this.state.startYear}
-                onChange={this.handleInputChange}
-                name="startYear"
-                placeholder="Start Year (required)"
-              />
-              <Input
-                value={this.state.endYear}
-                onChange={this.handleInputChange}
-                name="endYear"
-                placeholder="End Year (required)"
-              />
-              <FormBtn
-                disabled={!(this.state.topic && this.state.startYear && this.state.endYear)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Book
-              </FormBtn>
-            </form>
+              <Jumbotron>
+                <h1><del>NY Times Article Search</del></h1>
+                <h1>Coffee Shop Sim!</h1>
+              </Jumbotron>
+            <Row>
+              <Col size="md-6">
+                Actions
+                <div><button onClick={() => (
+                  this.handleClick()
+        )} type="button" className="btn btn-sm btn-saveBtn">Pull shot</button></div>
+        <div><button onClick={() => (
+                  this.handleClick()
+        )} type="button" className="btn btn-sm btn-saveBtn">Milk</button></div>
+        <div><button onClick={() => (
+                  this.handleClick()
+        )} type="button" className="btn btn-sm btn-saveBtn">Banana</button></div>
+              </Col>
+              <Col size="md-6">
+                Drink
+              </Col>
+            </Row>
           </Col>
           <Col size="md-6 sm-12">
             <Jumbotron>
-              <h1>Search Results</h1>
+              <h1>Orders</h1>
             </Jumbotron>
             {this.state.articles.length ? (
               <List>
