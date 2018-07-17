@@ -1,0 +1,8 @@
+.cup {
+    height: 100px;
+    width: 100px;
+    line-height: 100px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+}

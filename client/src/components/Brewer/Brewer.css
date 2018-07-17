@@ -1,0 +1,20 @@
+.brewer {
+    height: 40vh;
+    background: #dddddd;
+    line-height: 40vh;
+    text-align: center;
+    position: relative;
+}
+
+.target {
+    position: absolute;
+    bottom: 0;
+    background: green;
+    line-height: 100px;
+    height: 100px;
+    width: 100px;
+}
+
+.cupIsHere {
+    background: orange;
+}
