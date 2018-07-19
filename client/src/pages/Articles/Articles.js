@@ -17,6 +17,8 @@ import Storage from "../../components/Storage";
 import Syrups from "../../components/Syrups";
 import Cup from "../../components/Cup";
 import Auth from '../../auth/Auth.js';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 const auth = new Auth();
 
@@ -27,23 +29,44 @@ class Articles extends Component {
     topic: "",
     startYear: "",
     endYear: "",
-    cupInHand: false
+    itemInHand: null
   };
   
   componentDidMount() {
     this.loadDrinks();
   }
 
-  handleCupClick = () => {
-    if (this.state.cupInHand === false) {
+  handleItemPickup = (item) => {
+    if (this.state.itemInHand === null) {
       this.setState({
-        cupInHand: true
+        itemInHand: item
       });
-      document.body.style.cursor = "url(images/coffeeCup.svg) 52 63, auto";
     } else {
       this.setState({
-        cupInHand: false
+        itemInHand: null
       });
+    }
+    this.handleCursorChange(item);
+  }
+
+  handleCursorChange = (item) => {
+    let image;
+    let offset;
+    if (item) {
+      if (item.type === "cup") {
+        if (item.status === "empty") {
+          image = "coffeeCup.svg";
+          
+        } else {
+          image = "coffeeCupFilled.svg";
+        }
+        offset = "52 63";
+      } else if (item.type === "milk") {
+        image = "milk.jpg";
+        offset = "50 50";
+      }
+      document.body.style.cursor = `url(/images/${image}) ${offset}, auto`;
+    } else {
       document.body.style.cursor = "initial";
     }
   }
@@ -138,29 +161,42 @@ class Articles extends Component {
             <Row>
               <Col size="md-2">
                 <Brewer 
-                  cupInHand={this.state.cupInHand}
-                  handleCupClick={this.handleCupClick}
+                  itemInHand={this.state.itemInHand}
+                  handleItemPickup={this.handleItemPickup}
                 ></Brewer>
               </Col>
               <Col size="md-2">
                 <Syrups
-                  cupInHand={this.state.cupInHand}
-                  handleCupClick={this.handleCupClick}
+                  itemInHand={this.state.itemInHand}
+                  handleItemPickup={this.handleItemPickup}
                 ><Cup></Cup></Syrups>
               </Col>
               <Col size="md-5">
-                <Espresso></Espresso>
+                <Espresso
+                  itemInHand={this.state.itemInHand}
+                  handleItemPickup={this.handleItemPickup}
+                ></Espresso>
               </Col>
               <Col size="md-3">
-                <Counter></Counter>
+                <Counter
+                  itemInHand={this.state.itemInHand}
+                  handleItemPickup={this.handleItemPickup}
+                ></Counter>
               </Col>
             </Row>
             <Row>
               <Col size="md-6">
-                <Storage></Storage>
+                <Storage
+                  itemInHand={this.state.itemInHand}
+                  handleItemPickup={this.handleItemPickup}
+                  cupCounter={this.state.cupCounter}
+                ></Storage>
               </Col>
               <Col size="md-3">
-                <Fridge></Fridge>
+                <Fridge
+                  itemInHand={this.state.itemInHand}
+                  handleItemPickup={this.handleItemPickup}
+                ></Fridge>
               </Col>
               <Col size="md-3">
                 <Ice></Ice>
@@ -173,4 +209,4 @@ class Articles extends Component {
   }
 }
 
-export default Articles;
+export default DragDropContext(HTML5Backend)(Articles);

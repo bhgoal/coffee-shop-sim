@@ -4,3 +4,26 @@
     line-height: 40vh;
     text-align: center;
 }
+
+.target1 {
+    position: absolute;
+    bottom: 0;
+    background: green;
+    line-height: 100px;
+    height: 100px;
+    width: 100px;
+}
+
+.target2 {
+    position: absolute;
+    bottom: 0;
+    right: 16px;
+    background: green;
+    line-height: 100px;
+    height: 100px;
+    width: 100px;
+}
+
+.cupIsHere {
+    background: orange;
+}
