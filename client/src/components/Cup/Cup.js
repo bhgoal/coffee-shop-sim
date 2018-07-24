@@ -5,11 +5,11 @@ import "./Cup.css";
 // That way we don't have to define them all individually
 
 const Cup = props => {
-  const cupDisplay = (props.cupDisplay.status === "filled") ? "/images/coffeeCupFilled.svg" : "/images/coffeeCup.svg";
+  const cupDisplay = (props.cupDisplay.brownType != "none") ? "/images/coffeeCupFilled.svg" : "/images/coffeeCup.svg";
   return (
     <div className="cup" {...props}>
-      <div className="number">{props.cupDisplay.id}</div>
-      <img src={window.location.origin + cupDisplay} />
+      <div className="number">{props.cupDisplay.brownType}{props.cupDisplay.milk.type}</div>
+      <img className="cupImg" src={window.location.origin + cupDisplay} />
     </div>
   )
 };

@@ -1,17 +1,17 @@
 import React from "react";
-import "./Milk.css";
+import "./Pitcher.css";
 
 // The ...props means, spread all of the passed props onto this element
 // That way we don't have to define them all individually
 
-const Milk = props => {
+const Pitcher = props => {
   const cupDisplay = (props.cupDisplay.status === "filled") ? "/images/coffeeCupFilled.svg" : "/images/coffeeCup.svg";
   return (
-    <div className="milk" {...props}>
-      <div className="number">{props.cupDisplay.id}</div>
-      <img src={window.location.origin + "/images/milk.svg"} />
+    <div className="pitcher" {...props}>
+      <div className="number">{props.cupDisplay.milk.type}</div>
+      <img src={window.location.origin + "/images/pitcher.svg"} />
     </div>
   )
 };
 
-export default Milk;
+export default Pitcher;

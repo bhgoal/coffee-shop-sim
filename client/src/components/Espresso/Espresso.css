@@ -5,13 +5,64 @@
     text-align: center;
 }
 
-.target {
+.steam1 {
     position: absolute;
     bottom: 0;
-    background: green;
+    background: transparent;
     line-height: 100px;
     height: 100px;
     width: 100px;
+}
+
+.spout1 {
+    position: absolute;
+    left: 120px;
+    bottom: 0;
+    background: transparent;
+    line-height: 100px;
+    height: 100px;
+    width: 100px;
+}
+
+.spout2 {
+    position: absolute;
+    left: 225px;
+    bottom: 0;
+    background: transparent;
+    line-height: 100px;
+    height: 100px;
+    width: 100px;
+}
+
+.steam2 {
+    position: absolute;
+    left: 330px;
+    bottom: 0;
+    line-height: 100px;
+    height: 100px;
+    width: 100px;
+}
+
+.shotButton1 {
+    position: absolute;
+    top: 10px;
+    left: 130px;
+    background: red;
+    line-height: 30px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.shotButton2 {
+    position: absolute;
+    top: 10px;
+    left: 290px;
+    background: red;
+    line-height: 30px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
 }
 
 .cupIsHere {

@@ -54,7 +54,7 @@ class Articles extends Component {
     let offset;
     if (item) {
       if (item.type === "cup") {
-        if (item.status === "empty") {
+        if (item.brownType === "none") {
           image = "coffeeCup.svg";
           
         } else {
@@ -62,13 +62,22 @@ class Articles extends Component {
         }
         offset = "52 63";
       } else if (item.type === "milk") {
-        image = "milk.jpg";
+        image = "milk.svg";
         offset = "50 50";
+      } else if (item.type === "pitcher") {
+        image = "pitcher.svg";
+        offset = "45 50";
       }
       document.body.style.cursor = `url(/images/${image}) ${offset}, auto`;
     } else {
       document.body.style.cursor = "initial";
     }
+  }
+
+  changeInHand = (updated) => {
+    this.setState({
+      itemInHand: updated
+    });
   }
 
   handleInputChange = event => {
@@ -162,24 +171,28 @@ class Articles extends Component {
               <Col size="md-2">
                 <Brewer 
                   itemInHand={this.state.itemInHand}
+                  changeInHand={this.changeInHand}
                   handleItemPickup={this.handleItemPickup}
                 ></Brewer>
               </Col>
               <Col size="md-2">
                 <Syrups
                   itemInHand={this.state.itemInHand}
+                  changeInHand={this.changeInHand}
                   handleItemPickup={this.handleItemPickup}
                 ><Cup></Cup></Syrups>
               </Col>
               <Col size="md-5">
                 <Espresso
                   itemInHand={this.state.itemInHand}
+                  changeInHand={this.changeInHand}
                   handleItemPickup={this.handleItemPickup}
                 ></Espresso>
               </Col>
               <Col size="md-3">
                 <Counter
                   itemInHand={this.state.itemInHand}
+                  changeInHand={this.changeInHand}
                   handleItemPickup={this.handleItemPickup}
                 ></Counter>
               </Col>
@@ -189,7 +202,6 @@ class Articles extends Component {
                 <Storage
                   itemInHand={this.state.itemInHand}
                   handleItemPickup={this.handleItemPickup}
-                  cupCounter={this.state.cupCounter}
                 ></Storage>
               </Col>
               <Col size="md-3">

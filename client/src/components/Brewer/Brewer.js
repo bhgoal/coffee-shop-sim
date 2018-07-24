@@ -26,20 +26,69 @@ class Brewer extends Component {
     }
   }
 
-  handleClick = () => {
-    if (this.props.itemInHand != null) {
-      if (this.state.itemHere != null) {
-        console.log("cup already here");
+  validate = (id, type) => {
+    if (this.state[id]) {
+      const validStack = {
+        cup: "pitcher"
+      }
+      return (type === validStack[this.state[id].type])
+    } else {
+      const validPlace = {
+        itemHere: "cup",
+      }
+      return (type === validPlace[id])
+    }
+  }
+
+  handleStack = (id, inHand) => {
+    if (inHand.type === "milk") {
+      if (this.state[id].milk.type === "none") {
+        this.setState({
+          [id]: {...this.state[id], milk: {type: "whole", status: "cold"}}
+        })
+        console.log("filling pitcher with fresh milk...");
       } else {
-        this.setState({itemHere: this.props.itemInHand});
+        console.log("already has milk");
+      }
+    } 
+    if (inHand.type === "pitcher") {
+      if (this.state[id].milk.type === "none") {
+        if (inHand.milk.type != "none") {
+          this.setState({
+            [id]: {...this.state[id], milk: inHand.milk}
+          })
+          console.log("filling cup with pitcher milk");
+          this.props.changeInHand({type: "pitcher", id: 0, milk: {type: "none", status: "none"}});
+        } else {
+          console.log("pitcher is empty");
+        }
+      } else {
+        console.log("already has milk");
+      }
+    }
+  }
+
+
+  handleClick = (id, e) => {
+    if (this.props.itemInHand != null) {
+      if (this.state[id] != null) {
+        if (this.validate(id, this.props.itemInHand.type)) {
+          console.log("valid stack");
+          this.handleStack(id, this.props.itemInHand);
+        } else {
+          console.log("invalid stack");
+        }
+      } else if (this.validate(id, this.props.itemInHand.type)) {
+        this.setState({[id]: this.props.itemInHand});
         this.props.handleItemPickup(null);
-        this.setState({dropHighlight: false});
         console.log("cup placed");
+      } else {
+        console.log("invalid type");
       }
     } else if (this.props.itemInHand === null) {
-      if (this.state.itemHere != null) {
-        this.props.handleItemPickup(this.state.itemHere);
-        this.setState({dropHighlight: false, itemHere: null}); 
+      if (this.state[id] != null) {
+        this.props.handleItemPickup(this.state[id]);
+        this.setState({[id]: null}); 
         console.log("cup picked up");
       } else {
         console.log("nothing here");
@@ -48,12 +97,13 @@ class Brewer extends Component {
   };
 
   dispense = () => {
-    if (this.state.itemHere != null && this.state.itemHere.status === "empty") {
-      this.setState((prevState) => ({
-        itemHere: {type: "cup", id: prevState.itemHere.id, status: "filled"}
-      }))
-    } else if (this.state.itemHere != null && this.state.itemHere.status === "filled") {
-      console.log("already filled");
+    if (this.state.itemHere != null && this.state.itemHere.brownType === "none") {
+      this.setState({
+        itemHere: {...this.state.itemHere, brownType: "coffee"}
+      })
+      console.log("pouring coffee");
+    } else if (this.state.itemHere != null && this.state.itemHere.brownType != "none") {
+      console.log(`already filled with ${this.state.itemHere.brownType}`);
     } else {
       console.log("no cup here");
     }
@@ -72,7 +122,7 @@ class Brewer extends Component {
     return (
       <div className="brewer">
       Brewer
-        <div onClick={this.handleClick} className={className}>
+        <div onClick={(e) => this.handleClick("itemHere", e)} className={className}>
           Target area {itemHere}
         </div>
         <div onClick={this.dispense} className="dispenseButton">

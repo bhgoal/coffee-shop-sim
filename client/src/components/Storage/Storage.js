@@ -7,16 +7,15 @@ import "./Storage.css";
 
 class Storage extends Component {
   state = {
-    cupIsHere: true,
-    itemHere: {type: "cup", id: 0, status: "empty"}
+    itemHere: {type: "cup", id: 0, brownType: "none", milk: {type: "none", status: "none"}, syrup: "none"}
   };
 
   handleClick = () => {
     if (!this.props.itemInHand) {
       this.props.handleItemPickup(this.state.itemHere);
-      this.setState((prevState) => ({
-        itemHere: {type: "cup", id: prevState.itemHere.id + 1, status: "empty"}
-      })); 
+      this.setState({
+        itemHere: {...this.state.itemHere, id: this.state.itemHere.id + 1}
+      }); 
       console.log("new cup picked up");
     } else {
       console.log("already holding item");
@@ -26,11 +25,10 @@ class Storage extends Component {
   
 
   render() {
-    var className = this.state.cupIsHere ? 'target cupIsHere' : 'target';
     return (
       <div className="storage">
       Storage
-        <div onClick={this.handleClick} className={className}>
+        <div onClick={this.handleClick} className="target">
           Target area <Cup cupDisplay={this.state.itemHere} />
         </div>
       </div>

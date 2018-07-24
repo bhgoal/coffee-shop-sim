@@ -1,24 +1,96 @@
 import React, { Component } from "react";
 import Cup from "../Cup/Cup.js";
+import Milk from "../Milk/Milk.js";
+import Pitcher from "../Pitcher/Pitcher.js";
 import "./Counter.css";
 
-// The ...props means, spread all of the passed props onto this element
-// That way we don't have to define them all individually
+const components = {
+  cup: Cup,
+  milk: Milk,
+  pitcher: Pitcher
+};
 
 class Counter extends Component {
   state = {
-    itemHere1: null,
+    dropHighlight1: false,
+    dropHighlight2: false,
+    itemHere1: {type: "pitcher", id: 0, milk: {type: "none", status: "none"}},
     itemHere2: null
   };
+
+  componentDidUpdate = () => {
+    if (this.props.itemInHand) {
+      if (this.state.dropHighlight1 === false && ((this.state.itemHere1 === null) || (this.state.itemHere1 && this.state.itemHere1.type === "pitcher" && this.props.itemInHand.type === "milk"))) {
+        this.setState({dropHighlight1: true});
+      }
+    } else if (this.state.dropHighlight1 === true) {
+      this.setState({dropHighlight1: false});
+    }
+    if (this.props.itemInHand) {
+      if (this.state.dropHighlight2 === false && ((this.state.itemHere2 === null) || (this.state.itemHere2 && this.state.itemHere2.type === "pitcher" && this.props.itemInHand.type === "milk"))) {
+        this.setState({dropHighlight2: true});
+      }
+    } else if (this.state.dropHighlight2 === true) {
+      this.setState({dropHighlight2: false});
+    }
+  }
+
+  validate = (id, type) => {
+    if (this.state[id]) {
+      const validStack = {
+        pitcher: "milk",
+        cup: "pitcher"
+      }
+      return (type === validStack[this.state[id].type])
+    } else {
+      return true;
+    }
+  }
+
+  handleStack = (id, inHand) => {
+    if (inHand.type === "milk") {
+      if (this.state[id].milk.type === "none") {
+        this.setState({
+          [id]: {...this.state[id], milk: {type: "whole", status: "cold"}}
+        })
+        console.log("filling pitcher with fresh milk...");
+      } else {
+        console.log("already has milk");
+      }
+    } 
+    if (inHand.type === "pitcher") {
+      if (this.state[id].milk.type === "none") {
+        if (inHand.milk.type != "none") {
+          this.setState({
+            [id]: {...this.state[id], milk: inHand.milk}
+          })
+          console.log("filling cup with pitcher milk");
+          this.props.changeInHand({type: "pitcher", id: 0, milk: {type: "none", status: "none"}});
+        } else {
+          console.log("pitcher is empty");
+        }
+      } else {
+        console.log("already has milk");
+      }
+    }
+  }
+
 
   handleClick = (id, e) => {
     if (this.props.itemInHand != null) {
       if (this.state[id] != null) {
-        console.log("cup already here");
-      } else {
+        if (this.validate(id, this.props.itemInHand.type)) {
+          console.log("valid stack");
+          this.handleStack(id, this.props.itemInHand);
+        } else {
+          console.log("invalid stack");
+        }
+      } else if (this.validate(id, this.props.itemInHand.type)) {
         this.setState({[id]: this.props.itemInHand});
         this.props.handleItemPickup(null);
         console.log("cup placed");
+      } else {
+        console.log("invalid type");
       }
     } else if (this.props.itemInHand === null) {
       if (this.state[id] != null) {
@@ -34,14 +106,23 @@ class Counter extends Component {
   
 
   render() {
-    const target1 = (this.state.itemHere1 != null) ?
-    <Cup cupDisplay={this.state.itemHere1} /> :
-    null;
-    const target2 = (this.state.itemHere2 != null) ?
-    <Cup cupDisplay={this.state.itemHere2} /> :
-    null;
-    var className1 = (this.state.itemHere1 != null) ? 'cupIsHere' : "";
-    var className2 = (this.state.itemHere2 != null) ? 'cupIsHere' : "";
+    let target1;
+    if (this.state.itemHere1 != null) {
+      const Tag1 = components[this.state.itemHere1.type];
+      target1 = <Tag1 cupDisplay={this.state.itemHere1} />
+    } else {
+      target1 = null;
+    }
+    let target2;
+    if (this.state.itemHere2 != null) {
+      const Tag2 = components[this.state.itemHere2.type];
+      target2 = <Tag2 cupDisplay={this.state.itemHere2} />
+    } else {
+      target2 = null;
+    }
+    
+    var className1 = (this.state.dropHighlight1) ? 'validDrop' : "";
+    var className2 = (this.state.dropHighlight2) ? 'validDrop' : "";
     return (
       <div className="counter">
       Counter
