@@ -10,3 +10,18 @@
     transform: translate(-50%, -50%);
 }
 
+.hasMilk {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.milkStatus {
+    position: absolute;
+    top: 14px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}

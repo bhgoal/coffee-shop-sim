@@ -43,10 +43,54 @@
     width: 100px;
 }
 
+.frothButton1 {
+    position: absolute;
+    top: 10px;
+    left: 40px;
+    background: red;
+    line-height: 30px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.steamButton1 {
+    position: absolute;
+    top: 44px;
+    left: 40px;
+    background: red;
+    line-height: 30px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
 .shotButton1 {
     position: absolute;
     top: 10px;
     left: 130px;
+    background: red;
+    line-height: 30px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.frothButton2 {
+    position: absolute;
+    top: 10px;
+    right: 40px;
+    background: red;
+    line-height: 30px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.steamButton2 {
+    position: absolute;
+    top: 44px;
+    right: 40px;
     background: red;
     line-height: 30px;
     height: 30px;

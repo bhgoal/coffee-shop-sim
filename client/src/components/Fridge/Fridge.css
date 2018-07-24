@@ -5,9 +5,38 @@
     text-align: center;
 }
 
-.target {
+.fridgeSpace1 {
+    position: absolute;
+    top: 0;
+    background: green;
+    line-height: 100px;
+    height: 100px;
+    width: 100px;
+}
+
+.fridgeSpace2 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: green;
+    line-height: 100px;
+    height: 100px;
+    width: 100px;
+}
+
+.fridgeSpace3 {
     position: absolute;
     bottom: 0;
+    background: green;
+    line-height: 100px;
+    height: 100px;
+    width: 100px;
+}
+
+.fridgeSpace4 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
     background: green;
     line-height: 100px;
     height: 100px;

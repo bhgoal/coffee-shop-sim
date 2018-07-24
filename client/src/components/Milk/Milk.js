@@ -8,7 +8,7 @@ const Milk = props => {
   const cupDisplay = (props.cupDisplay.status === "filled") ? "/images/coffeeCupFilled.svg" : "/images/coffeeCup.svg";
   return (
     <div className="milk" {...props}>
-      <div className="number">{props.cupDisplay.id}</div>
+      <div className="number">{props.cupDisplay.milkType}</div>
       <img src={window.location.origin + "/images/milk.svg"} />
     </div>
   )

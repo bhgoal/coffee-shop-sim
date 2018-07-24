@@ -75,9 +75,9 @@ class Espresso extends Component {
     if (inHand.type === "milk") {
       if (this.state[id].milk.type === "none") {
         this.setState({
-          [id]: {...this.state[id], milk: {type: "whole", status: "cold"}}
+          [id]: {...this.state[id], milk: {type: inHand.milkType, status: "cold"}}
         })
-        console.log("filling pitcher with fresh milk...");
+        console.log(`filling pitcher with ${inHand.milkType} milk...`);
       } else {
         console.log("already has milk");
       }
@@ -141,6 +141,21 @@ class Espresso extends Component {
     }
   }
 
+  steam = (id, action, e) => {
+    if (this.state[id] != null && this.state[id].milk.type === "none") {
+      console.log("pitcher is empty");
+    } else if (this.state[id] != null && this.state[id].milk.status === "cold") {
+      this.setState({
+        [id]: {...this.state[id], milk: {type: this.state[id].milk.type, status: `${action}ed`}}
+      })
+      console.log(`${action}ing milk...`);
+    } else if (this.state[id] != null && this.state[id].milk.status != "cold") {
+      console.log(`milk is already ${this.state[id].milk.status}`);
+    } else {
+      console.log("no pitcher here");
+    }
+  }
+
   render() {
     let target1;
     if (this.state.itemHere1 != null) {
@@ -191,11 +206,23 @@ class Espresso extends Component {
         <div onClick={(e) => this.handleClick("itemHere4", e)} className={'steam2 ' + className4}>
           Steam 2 {target4}
         </div>
+        <div onClick={(e) => this.steam("itemHere1", "froth", e)} className="frothButton1">
+          F
+        </div>
+        <div onClick={(e) => this.steam("itemHere1", "steam", e)}className="steamButton1">
+          S
+        </div>
         <div onClick={(e) => this.pullShot("itemHere2", e)} className="shotButton1">
-          D
+          E
+        </div>
+        <div onClick={(e) => this.steam("itemHere4", "froth", e)}className="frothButton2">
+          F
+        </div>
+        <div onClick={(e) => this.steam("itemHere4", "steam", e)} className="steamButton2">
+          S
         </div>
         <div onClick={(e) => this.pullShot("itemHere3", e)}className="shotButton2">
-          D
+          E
         </div>
       </div>
     )

@@ -114,7 +114,22 @@ class Syrups extends Component {
       }
     }
   };
-
+  
+  dispenseSyrup = (idNum, e) => {
+    const id = "itemHere" + idNum;
+    console.log(id);
+    const flavors = ["vanilla", "hazelnut", "mocha"];
+    if (this.state[id] != null && this.state[id].syrup === "none") {
+      this.setState({
+        [id]: {...this.state[id], syrup: flavors[parseInt(idNum) - 1]}
+      })
+      console.log(`adding ${flavors[parseInt(idNum) - 1]} syrup`);
+    } else if (this.state[id] != null && this.state[id].syrup != "none") {
+      console.log(`already filled with ${this.state[id].syrup} syrup`);
+    } else {
+      console.log("no cup here");
+    }
+  }
   
 
   render() {
@@ -156,6 +171,15 @@ class Syrups extends Component {
         </div>
         <div onClick={(e) => this.handleClick("itemHere3", e)} className={'syrup3 ' + className3}>
           3 {target3}
+        </div>
+        <div onClick={(e) => this.dispenseSyrup("1", e)} className="syrupButton1">
+          D
+        </div>
+        <div onClick={(e) => this.dispenseSyrup("2", e)}className="syrupButton2">
+          D
+        </div>
+        <div onClick={(e) => this.dispenseSyrup("3", e)}className="syrupButton3">
+          D
         </div>
       </div>
     )
