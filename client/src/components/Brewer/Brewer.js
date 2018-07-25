@@ -118,16 +118,9 @@ class Brewer extends Component {
     } else {
       itemHere = null;
     }
-    var className = (this.state.dropHighlight) ? 'target validDrop' : 'target';
     return (
       <div className="brewer">
-      Brewer
-        <div onClick={(e) => this.handleClick("itemHere", e)} className={className}>
-          Target area {itemHere}
-        </div>
-        <div onClick={this.dispense} className="dispenseButton">
-          D
-        </div>
+        <img className="brewerImg" src={window.location.origin + "/images/brewer.png"} />
       </div>
     )
   }

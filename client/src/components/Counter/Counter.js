@@ -126,10 +126,10 @@ class Counter extends Component {
     return (
       <div className="counter">
       Counter
-        <div onClick={(e) => this.handleClick("itemHere1", e)} className={'target1 ' + className1}>
+        <div onClick={(e) => this.handleClick("itemHere1", e)} className={'counterTarget1 ' + className1}>
           Target area 1 {target1}
         </div>
-        <div onClick={(e) => this.handleClick("itemHere2", e)} className={'target2 ' + className2}>
+        <div onClick={(e) => this.handleClick("itemHere2", e)} className={'counterTarget2 ' + className2}>
           Target area 2 {target2}
         </div>
       </div>

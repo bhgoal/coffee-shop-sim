@@ -1,15 +1,14 @@
 .brewer {
-    height: 40vh;
-    background: #dddddd;
-    line-height: 40vh;
-    text-align: center;
-    position: relative;
-}
-
-.target {
+    width: 14%;
     position: absolute;
     bottom: 0;
-    background: green;
+
+}
+
+.brewerTarget {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 255, 55, 0.3);
     line-height: 100px;
     height: 100px;
     width: 100px;
@@ -31,4 +30,11 @@
     height: 30px;
     width: 30px;
     cursor: pointer;
+}
+
+.brewerImg {
+    height: auto;
+    width: 100%;
+
+    vertical-align: bottom;
 }

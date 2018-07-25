@@ -15,8 +15,8 @@ class Fridge extends Component {
     dropHighlight3: false,
     dropHighlight4: false,
     itemHere1: {type: "milk", id: 0, milkType: "whole"},
-    itemHere2: null,
-    itemHere3: {type: "milk", id: 0, milkType: "2%"},
+    itemHere2: {type: "milk", id: 0, milkType: "halfn"},
+    itemHere3: {type: "milk", id: 0, milkType: "two"},
     itemHere4: null
   };
 

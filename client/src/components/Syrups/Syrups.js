@@ -118,7 +118,7 @@ class Syrups extends Component {
   dispenseSyrup = (idNum, e) => {
     const id = "itemHere" + idNum;
     console.log(id);
-    const flavors = ["vanilla", "hazelnut", "mocha"];
+    const flavors = ["vanilla", "caramel", "mocha"];
     if (this.state[id] != null && this.state[id].syrup === "none") {
       this.setState({
         [id]: {...this.state[id], syrup: flavors[parseInt(idNum) - 1]}
@@ -161,7 +161,9 @@ class Syrups extends Component {
 
     return (
       <div className="syrups">
-        <img src={window.location.origin + "/images/syrups.svg"} />
+        <img className="bottle" src={window.location.origin + "/images/vanilla.svg"} />
+        <img className="bottle" src={window.location.origin + "/images/caramel.svg"} />
+        <img className="bottle" src={window.location.origin + "/images/mocha.svg"} />
       Syrups
         <div onClick={(e) => this.handleClick("itemHere1", e)} className={'syrup1 ' + className1}>
           1 {target1}
@@ -173,13 +175,13 @@ class Syrups extends Component {
           3 {target3}
         </div>
         <div onClick={(e) => this.dispenseSyrup("1", e)} className="syrupButton1">
-          D
+          V
         </div>
         <div onClick={(e) => this.dispenseSyrup("2", e)}className="syrupButton2">
-          D
+          C
         </div>
         <div onClick={(e) => this.dispenseSyrup("3", e)}className="syrupButton3">
-          D
+          M
         </div>
       </div>
     )

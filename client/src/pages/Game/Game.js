@@ -10,7 +10,7 @@ import Brewer from "../../components/Brewer";
 import Counter from "../../components/Counter";
 import Espresso from "../../components/Espresso";
 import Fridge from "../../components/Fridge";
-import Ice from "../../components/Ice";
+import Trash from "../../components/Trash";
 import Orders from "../../components/Orders";
 import SteamWand from "../../components/SteamWand";
 import Storage from "../../components/Storage";
@@ -45,7 +45,7 @@ class Game extends Component {
       syrup: ["vanilla", "caramel", "mocha"],
       milk: {
         type: ["2%", "whole", "half and half"],
-        status: ["cold", "steamed", "foamed"]
+        status: ["cold", "steamed", "frothed"]
       }
     };
 
@@ -78,7 +78,7 @@ class Game extends Component {
     //     syrup: any
     //     milk: {
     //      type: 2% or whole, 
-    //      status: foamed
+    //      status: frothed
     //     }
     //   }
     //   mocha: {
@@ -121,9 +121,9 @@ class Game extends Component {
     } else if (brownType === "espresso") {
       milk.type = getRandom({none: 0.25, whole: 0.4, two: 0.35});
       if (milk.type === "whole" || milk.type === "two") {
-        milk.status = getRandom({foamed: 0.3, steamed: 0.7});
+        milk.status = getRandom({frothed: 0.3, steamed: 0.7});
         syrup = getRandom(syrupChances);
-        if (milk.status = "foamed") {
+        if (milk.status === "frothed") {
           name = "Cappuccino";
         } else if (syrup === "mocha") {
           name = "Mocha";
@@ -147,6 +147,24 @@ class Game extends Component {
     this.setState({ orders: [...this.state.orders, newOrder] }) ;
     
       // itemHere: {type: "cup", id: 0, brownType: "none", milk: {type: "none", status: "none"}, syrup: "none"}
+  }
+
+  checkOrder = (ticket) => {
+    const orderOut = this.state.itemInHand;
+    console.log(orderOut);
+    console.log(ticket);
+    if (!orderOut) {
+      console.log("no drink in hand");
+    } else if (orderOut.brownType === ticket.brownType && orderOut.syrup === ticket.syrup && orderOut.milk.type === ticket.milk.type && orderOut.milk.status === ticket.milk.status) {
+      console.log("order good");
+      this.generateOrder();
+      this.setState({
+        itemInHand: null
+      });
+      this.handleCursorChange(null);
+    } else {
+      console.log("order no good");
+    }
   }
 
   handleItemPickup = (item) => {
@@ -222,43 +240,40 @@ class Game extends Component {
 
   render() {
     return (
-      <Container fluid>
-        <Row>
-          <Col size="md-3">
-            <Orders orders={this.state.orders} />
-          </Col>
-          <Col size="md-9">
-            <Row>
-              <Col size="md-2">
+      <Container fluid >
+          <div style={{width: "24%", "min-height": "100%"}}>
+            <Orders orders={this.state.orders} checkOrder={this.checkOrder} generateOrder={this.generateOrder}/>
+          </div>
+          <div style={{width: "76%", height: "100%"}}>
+            <div style={{position: "relative", width: "100%", "height": "51.2%"}}>
+
                 <Brewer 
                   itemInHand={this.state.itemInHand}
                   changeInHand={this.changeInHand}
                   handleItemPickup={this.handleItemPickup}
                 ></Brewer>
-              </Col>
-              <Col size="md-2">
-                <Syrups
+
+
+                {/* <Syrups
                   itemInHand={this.state.itemInHand}
                   changeInHand={this.changeInHand}
                   handleItemPickup={this.handleItemPickup}
                 ></Syrups>
-              </Col>
-              <Col size="md-5">
+
                 <Espresso
                   itemInHand={this.state.itemInHand}
                   changeInHand={this.changeInHand}
                   handleItemPickup={this.handleItemPickup}
-                ></Espresso>
-              </Col>
-              <Col size="md-3">
-                <Counter
+                ></Espresso> */}
+
+                {/* <Counter
                   itemInHand={this.state.itemInHand}
                   changeInHand={this.changeInHand}
                   handleItemPickup={this.handleItemPickup}
-                ></Counter>
-              </Col>
-            </Row>
-            <Row>
+                ></Counter> */}
+
+            </div>
+            {/* <div style={{display: "flex", width: "100%", "max-height": "50%"}}>
               <Col size="md-6">
                 <Storage
                   itemInHand={this.state.itemInHand}
@@ -272,11 +287,11 @@ class Game extends Component {
                 ></Fridge>
               </Col>
               <Col size="md-3">
-                <Ice></Ice>
+                <Trash></Trash>
               </Col>
-            </Row>
-          </Col>
-        </Row>
+            </div> */}
+          </div>
+
       </Container>
     );
   }
