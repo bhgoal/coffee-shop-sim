@@ -1,6 +1,6 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import Articles from "./pages/Articles";
+import Game from "./pages/Game";
 import Saved from "./pages/Saved";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
@@ -21,8 +21,8 @@ const App = () =>
     <div>
       <Nav auth={auth}/>
       <Switch>
-        <Route exact path="/" render={(props) => <Articles auth={auth} {...props} />} />
-        <Route exact path="/articles" render={(props) => <Articles auth={auth} {...props} />} />
+        <Route exact path="/" render={(props) => <Game auth={auth} {...props} />} />
+        <Route exact path="/articles" render={(props) => <Game auth={auth} {...props} />} />
         <Route exact path="/saved" render={(props) => <Saved auth={auth} {...props} />} />
         <Route path="/callback" render={(props) => {
           handleAuthentication(props);

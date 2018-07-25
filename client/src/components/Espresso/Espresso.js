@@ -31,14 +31,14 @@ class Espresso extends Component {
       this.setState({dropHighlight1: false});
     }
     if (this.props.itemInHand) {
-      if (this.props.itemInHand.type === "cup" && this.state.dropHighlight2 === false && this.state.itemHere2 === null) {
+      if ((this.props.itemInHand.type === "cup" && this.state.dropHighlight2 === false && this.state.itemHere2 === null) || (this.props.itemInHand.type === "pitcher" && this.state.dropHighlight2 === false && this.state.itemHere2)) {
         this.setState({dropHighlight2: true});
       }
     } else if (this.state.dropHighlight2 === true) {
       this.setState({dropHighlight2: false});
     }
     if (this.props.itemInHand) {
-      if (this.props.itemInHand.type === "cup" && this.state.dropHighlight3 === false && this.state.itemHere3 === null) {
+      if ((this.props.itemInHand.type === "cup" && this.state.dropHighlight3 === false && this.state.itemHere3 === null) || (this.props.itemInHand.type === "pitcher" && this.state.dropHighlight3 === false && this.state.itemHere3)) {
         this.setState({dropHighlight3: true});
       }
     } else if (this.state.dropHighlight3 === true) {
