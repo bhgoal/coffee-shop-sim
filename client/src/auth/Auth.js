@@ -69,14 +69,29 @@ export default class Auth {
     if (!accessToken) {
       console.log('Access Token must exist to fetch profile');
     }
-
-    this.auth0.client.userInfo(accessToken, function(err, profile) {
+    let userProfile = this.auth0.client.userInfo(accessToken, function(err, profile) {
       if (profile) {
         console.log(profile);
-        const userProfile = profile;
-        return userProfile;
+        userProfile = profile;
+        console.log(userProfile);
+        displayProfile(userProfile);
+        return profile;
       }
     });
+
+    
+    function displayProfile(profile) {
+      userProfile = profile;
+      console.log(userProfile);
+      this.profileResponse(userProfile);
+    }
+    console.log(userProfile);
+    return userProfile;
   }
+
+  profileResponse(profile) {
+    console.log(profile);
+  }
+
 
 }

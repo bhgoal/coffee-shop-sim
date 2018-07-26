@@ -21,25 +21,71 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 const auth = new Auth();
+let userId;
 
 
 class Game extends Component {
   state = {
     orders: [],
     orderNum: 0,
-    itemInHand: null
+    itemInHand: null,
+    userData: null,
+    currentScore: 0
   };
   
   componentDidMount() {
     //this.loadDrinks();
     //this.generateOrder();
     //console.log(this.state.orders);
-    console.log(auth.getProfile());
+    this.checkLogin();
+    //setTimeout(this.getUserData, 2000);
+  }
+
+  checkLogin = () => {
+    const accessToken = localStorage.getItem('access_token');
+
+    if (!accessToken) {
+      console.log('Access Token must exist to fetch profile');
+      auth.login();
+    } else {
+      auth.auth0.client.userInfo(accessToken, function(err, profile) {
+        if (profile) {
+          console.log(profile);
+          API.saveArticle({
+            userId: profile.sub
+          }).catch(err => console.log(err));
+          userId = profile.sub;
+          console.log(userId);
+        }
+      });
+      setTimeout(this.getUserData, 2000);
+    }
+  }
+
+  getUserData = () => {
+    API.getArticle(userId).then(res => {
+      this.setState({ 
+        userData: res.data
+      });
+      console.log(this.state.userData);
+    });
   }
 
   componentDidUpdate() {
-    if (this.state.orders.length > 5) {
-      this.stopOrders();
+    if (this.state.orders.length > 4) {
+      this.gameOver();
+    }
+  }
+
+  gameOver = () => {
+    this.stopOrders();
+    if (this.state.currentScore > this.state.userData.highScore) {
+      console.log(this.state.currentScore);
+      API.updateArticle({
+        userId: this.state.userData.userId,
+        highScore: this.state.currentScore
+      }).catch(err => console.log(err));
+      this.getUserData();
     }
   }
 
@@ -177,6 +223,9 @@ class Game extends Component {
       console.log("order good");
       currentOrders.splice([currentOrders.findIndex(order => order.orderNum === ticket.orderNum)], 1);
       this.emptyHand();
+      this.setState({
+        currentScore: this.state.currentScore + 1
+      });
     } else {
       console.log("order no good");
     }
@@ -266,6 +315,7 @@ class Game extends Component {
           <div style={{width: "24%", minHeight: "100%"}}>
             <button onClick={this.startOrders}>Start</button>
             <button onClick={this.stopOrders}>Stop</button>
+            Current Score: {this.state.currentScore}, High Score: {this.state.userData ? this.state.userData.highScore : "Loading.."}
             <Orders orders={this.state.orders} checkOrder={this.checkOrder} generateOrder={this.generateOrder}/>
           </div>
           <div style={{width: "76%", height: "100%"}}>

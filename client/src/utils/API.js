@@ -23,11 +23,10 @@ export default {
   // BEGIN MY CODE FOR UPDATING (added comma above also)
   // Updates an article in the database
   updateArticle: function(articleData) {
-    let id = articleData._id;
+    let id = articleData.userId;
     let articleDataNew = {
-         title: articleData.title,
-         author: articleData.author,
-         synopsis: articleData.synopsis
+         highScore: articleData.highScore,
+         tutorialComplete: articleData.tutorialComplete
     };
     return axios.put("/api/articles/" + id , articleDataNew);
   }
