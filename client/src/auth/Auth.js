@@ -5,7 +5,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'bhgoal.auth0.com',
     clientID: 'pzGMlOALqUYtYbLeHkMRRmpMED8uqmRY',
-    redirectUri: 'http://localhost:3000/callback',
+    redirectUri: ((process.env.NODE_ENV === 'production') ? "https://coffee-shop-sim.herokuapp.com" : "http://localhost:3000/callback"),
     audience: 'https://bhgoal.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid profile'
