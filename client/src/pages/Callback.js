@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 class Callback extends Component {
   render() {
+    console.log("callback");
     return (
       <div>
         {/* <img src={loading} alt="loading"/> */}
