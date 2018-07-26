@@ -128,18 +128,17 @@ class Fridge extends Component {
     var className4 = (this.state.dropHighlight4) ? 'validDrop' : "";
     return (
       <div className="fridge">
-      Fridge
         <div onClick={(e) => this.handleClick("itemHere1", e)} className={'fridgeSpace1 ' + className1}>
-          Space 1 {target1}
+          {target1}
         </div>
         <div onClick={(e) => this.handleClick("itemHere2", e)} className={'fridgeSpace2 ' + className2}>
-          Space 2 {target2}
+          {target2}
         </div>
         <div onClick={(e) => this.handleClick("itemHere3", e)} className={'fridgeSpace3 ' + className3}>
-          Space 3 {target3}
+          {target3}
         </div>
         <div onClick={(e) => this.handleClick("itemHere4", e)} className={'fridgeSpace4 ' + className4}>
-          Space 4 {target4}
+          {target4}
         </div>
       </div>
     )

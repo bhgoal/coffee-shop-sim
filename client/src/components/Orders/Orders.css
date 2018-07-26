@@ -1,0 +1,11 @@
+.singleOrder {
+    background: rgba(255, 255, 255, 0.93);
+    margin: 4% 4%;
+    padding: 2%;
+    border-radius: 5px;
+    height: 5vw;
+}
+
+.singleOrder:hover {
+    box-shadow: 0 0 18px 2px white;
+}

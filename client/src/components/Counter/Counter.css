@@ -1,7 +1,8 @@
 .counter {
-    height: 40vh;
-    line-height: 40vh;
-    text-align: center;
+    width: 24%;
+    position: absolute;
+    left: 76%;
+    bottom: 0;
 }
 
 .counterTarget1 {
@@ -16,7 +17,7 @@
 .counterTarget2 {
     position: absolute;
     bottom: 0;
-    right: 16px;
+    right: 0;
     background: rgba(0, 255, 55, 0.3);
     line-height: 100px;
     height: 100px;

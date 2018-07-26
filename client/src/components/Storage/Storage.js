@@ -27,8 +27,7 @@ class Storage extends Component {
   render() {
     return (
       <div className="storage">
-      Storage
-        <div onClick={this.handleClick} className="target">
+        <div onClick={this.handleClick} className="storageTarget">
           Target area <Cup cupDisplay={this.state.itemHere} />
         </div>
       </div>

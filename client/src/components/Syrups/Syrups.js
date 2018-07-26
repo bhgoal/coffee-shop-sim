@@ -164,15 +164,14 @@ class Syrups extends Component {
         <img className="bottle" src={window.location.origin + "/images/vanilla.svg"} />
         <img className="bottle" src={window.location.origin + "/images/caramel.svg"} />
         <img className="bottle" src={window.location.origin + "/images/mocha.svg"} />
-      Syrups
         <div onClick={(e) => this.handleClick("itemHere1", e)} className={'syrup1 ' + className1}>
-          1 {target1}
+          {target1}
         </div>
         <div onClick={(e) => this.handleClick("itemHere2", e)} className={'syrup2 ' + className2}>
-          2 {target2}
+          {target2}
         </div>
         <div onClick={(e) => this.handleClick("itemHere3", e)} className={'syrup3 ' + className3}>
-          3 {target3}
+          {target3}
         </div>
         <div onClick={(e) => this.dispenseSyrup("1", e)} className="syrupButton1">
           V

@@ -3,11 +3,11 @@ import "./Milk.css";
 
 
 const Milk = props => {
-  const cupDisplay = (props.cupDisplay.status === "filled") ? "/images/coffeeCupFilled.svg" : "/images/coffeeCup.svg";
+  const cupDisplay = (props.cupDisplay.milkType === "whole") ? "/images/wholeMilk.svg" : (props.cupDisplay.milkType === "two") ? "/images/twoMilk.svg" : "/images/halfn.svg";
+  const halfn = (props.cupDisplay.milkType === "halfn") ? "halfn" : "";
   return (
     <div className="milk">
-      <div className="milkJug">{props.cupDisplay.milkType}</div>
-      <img src={window.location.origin + "/images/milk.svg"} />
+      <img className={`milkImg ${halfn}`} src={window.location.origin + cupDisplay} />
     </div>
   )
 };

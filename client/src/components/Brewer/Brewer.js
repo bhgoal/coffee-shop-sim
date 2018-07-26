@@ -29,7 +29,8 @@ class Brewer extends Component {
   validate = (id, type) => {
     if (this.state[id]) {
       const validStack = {
-        cup: "pitcher"
+        cup: "pitcher",
+        cup: "milk"
       }
       return (type === validStack[this.state[id].type])
     } else {
@@ -44,9 +45,9 @@ class Brewer extends Component {
     if (inHand.type === "milk") {
       if (this.state[id].milk.type === "none") {
         this.setState({
-          [id]: {...this.state[id], milk: {type: "whole", status: "cold"}}
+          [id]: {...this.state[id], milk: {type: inHand.milkType, status: "cold"}}
         })
-        console.log("filling pitcher with fresh milk...");
+        console.log(`filling cup with ${inHand.milkType} milk...`);
       } else {
         console.log("already has milk");
       }
@@ -118,9 +119,16 @@ class Brewer extends Component {
     } else {
       itemHere = null;
     }
+    var className = (this.state.dropHighlight) ? 'validDrop' : "";
     return (
       <div className="brewer">
-        <img className="brewerImg" src={window.location.origin + "/images/brewer.png"} />
+        <img className="brewerImg" src={window.location.origin + "/images/brewer.svg"} />
+        <div onClick={(e) => this.handleClick("itemHere", e)} className={'brewerTarget ' + className}>
+          Target area {itemHere}
+        </div>
+        <div onClick={this.dispense}className="dispenseButton">
+          D
+        </div>
       </div>
     )
   }

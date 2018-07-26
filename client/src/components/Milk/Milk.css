@@ -1,8 +1,5 @@
 .milk {
-    height: 100px;
-    width: 100px;
-    line-height: 100px;
-    text-align: center;
+    width: 6vw;
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -10,10 +7,17 @@
     transform: translate(-50%, -50%);
 }
 
-.milkJug {
+.milkImg {
+    height: auto;
+    width: 100%;
     position: absolute;
-    top: 8px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
+    bottom: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.halfn {
+    height: auto;
+    width: 50%;
 }

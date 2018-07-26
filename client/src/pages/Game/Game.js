@@ -26,16 +26,29 @@ const auth = new Auth();
 class Game extends Component {
   state = {
     orders: [],
-    topic: "",
-    startYear: "",
-    endYear: "",
+    orderNum: 0,
     itemInHand: null
   };
   
   componentDidMount() {
     //this.loadDrinks();
-    this.generateOrder();
-    console.log(this.state.orders);
+    //this.generateOrder();
+    //console.log(this.state.orders);
+    console.log(auth.getProfile());
+  }
+
+  componentDidUpdate() {
+    if (this.state.orders.length > 5) {
+      this.stopOrders();
+    }
+  }
+
+  startOrders = () => {
+    this.interval = setInterval(this.generateOrder, 1000);
+  }
+
+  stopOrders = () => {
+    clearInterval(this.interval);
   }
 
   generateOrder = () => {
@@ -138,6 +151,7 @@ class Game extends Component {
     }
 
     const newOrder = {
+      orderNum: this.state.orderNum,
       name: name,
       brownType: brownType,
       syrup: syrup,
@@ -145,11 +159,15 @@ class Game extends Component {
     }
     console.log(newOrder);
     this.setState({ orders: [...this.state.orders, newOrder] }) ;
+    this.setState({
+      orderNum: this.state.orderNum + 1
+    }); 
     
       // itemHere: {type: "cup", id: 0, brownType: "none", milk: {type: "none", status: "none"}, syrup: "none"}
   }
 
   checkOrder = (ticket) => {
+    const currentOrders = this.state.orders;
     const orderOut = this.state.itemInHand;
     console.log(orderOut);
     console.log(ticket);
@@ -157,14 +175,18 @@ class Game extends Component {
       console.log("no drink in hand");
     } else if (orderOut.brownType === ticket.brownType && orderOut.syrup === ticket.syrup && orderOut.milk.type === ticket.milk.type && orderOut.milk.status === ticket.milk.status) {
       console.log("order good");
-      this.generateOrder();
-      this.setState({
-        itemInHand: null
-      });
-      this.handleCursorChange(null);
+      currentOrders.splice([currentOrders.findIndex(order => order.orderNum === ticket.orderNum)], 1);
+      this.emptyHand();
     } else {
       console.log("order no good");
     }
+  }
+
+  emptyHand = () => {
+    this.setState({
+      itemInHand: null
+    });
+    this.handleCursorChange(null);
   }
 
   handleItemPickup = (item) => {
@@ -241,7 +263,9 @@ class Game extends Component {
   render() {
     return (
       <Container fluid >
-          <div style={{width: "24%", "min-height": "100%"}}>
+          <div style={{width: "24%", minHeight: "100%"}}>
+            <button onClick={this.startOrders}>Start</button>
+            <button onClick={this.stopOrders}>Stop</button>
             <Orders orders={this.state.orders} checkOrder={this.checkOrder} generateOrder={this.generateOrder}/>
           </div>
           <div style={{width: "76%", height: "100%"}}>
@@ -254,7 +278,7 @@ class Game extends Component {
                 ></Brewer>
 
 
-                {/* <Syrups
+                <Syrups
                   itemInHand={this.state.itemInHand}
                   changeInHand={this.changeInHand}
                   handleItemPickup={this.handleItemPickup}
@@ -264,32 +288,27 @@ class Game extends Component {
                   itemInHand={this.state.itemInHand}
                   changeInHand={this.changeInHand}
                   handleItemPickup={this.handleItemPickup}
-                ></Espresso> */}
+                ></Espresso>
 
-                {/* <Counter
+                <Counter
                   itemInHand={this.state.itemInHand}
                   changeInHand={this.changeInHand}
                   handleItemPickup={this.handleItemPickup}
-                ></Counter> */}
+                ></Counter>
 
             </div>
-            {/* <div style={{display: "flex", width: "100%", "max-height": "50%"}}>
-              <Col size="md-6">
+            <div style={{position: "relative", width: "100%", "height": "48.8%"}}>
                 <Storage
                   itemInHand={this.state.itemInHand}
                   handleItemPickup={this.handleItemPickup}
                 ></Storage>
-              </Col>
-              <Col size="md-3">
                 <Fridge
                   itemInHand={this.state.itemInHand}
                   handleItemPickup={this.handleItemPickup}
                 ></Fridge>
-              </Col>
-              <Col size="md-3">
-                <Trash></Trash>
-              </Col>
-            </div> */}
+                <Trash
+                  emptyHand={this.emptyHand}></Trash>
+            </div>
           </div>
 
       </Container>

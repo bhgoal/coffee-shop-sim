@@ -1,7 +1,8 @@
 .espresso {
-    height: 40vh;
-    line-height: 40vh;
-    text-align: center;
+    width: 42%;
+    position: absolute;
+    left: 34%;
+    bottom: 0;
 }
 
 .steam1 {
@@ -15,7 +16,7 @@
 
 .spout1 {
     position: absolute;
-    left: 120px;
+    left: 25%;
     bottom: 0;
     background: transparent;
     line-height: 100px;
@@ -25,7 +26,7 @@
 
 .spout2 {
     position: absolute;
-    left: 225px;
+    left: 50%;
     bottom: 0;
     background: transparent;
     line-height: 100px;
@@ -35,7 +36,7 @@
 
 .steam2 {
     position: absolute;
-    left: 330px;
+    left: 75%;
     bottom: 0;
     line-height: 100px;
     height: 100px;
@@ -45,7 +46,7 @@
 .frothButton1 {
     position: absolute;
     top: 10px;
-    left: 40px;
+    left: 5%;
     background: red;
     line-height: 30px;
     height: 30px;
@@ -56,7 +57,7 @@
 .steamButton1 {
     position: absolute;
     top: 44px;
-    left: 40px;
+    left: 5%;
     background: red;
     line-height: 30px;
     height: 30px;
@@ -67,7 +68,7 @@
 .shotButton1 {
     position: absolute;
     top: 10px;
-    left: 130px;
+    left: 25%;
     background: red;
     line-height: 30px;
     height: 30px;
@@ -78,7 +79,7 @@
 .frothButton2 {
     position: absolute;
     top: 10px;
-    right: 40px;
+    right: 5%;
     background: red;
     line-height: 30px;
     height: 30px;
@@ -89,7 +90,7 @@
 .steamButton2 {
     position: absolute;
     top: 44px;
-    right: 40px;
+    right: 5%;
     background: red;
     line-height: 30px;
     height: 30px;
@@ -100,7 +101,7 @@
 .shotButton2 {
     position: absolute;
     top: 10px;
-    left: 290px;
+    left: 75%;
     background: red;
     line-height: 30px;
     height: 30px;
@@ -113,5 +114,6 @@
 }
 
 .espressoImg {
-    height: 100%;
+    height: auto;
+    width: 100%;
 }

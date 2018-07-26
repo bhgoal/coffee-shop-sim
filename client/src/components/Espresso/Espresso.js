@@ -193,8 +193,7 @@ class Espresso extends Component {
     return (
       <div className="espresso">
         <img className="espressoImg" src={window.location.origin + "/images/espresso.svg"} />
-      Espresso
-        {/* <div onClick={(e) => this.handleClick("itemHere1", e)} className={'steam1 ' + className1}>
+        <div onClick={(e) => this.handleClick("itemHere1", e)} className={'steam1 ' + className1}>
           Steam 1 {target1}
         </div>
         <div onClick={(e) => this.handleClick("itemHere2", e)} className={'spout1 ' + className2}>
@@ -223,7 +222,7 @@ class Espresso extends Component {
         </div>
         <div onClick={(e) => this.pullShot("itemHere3", e)}className="shotButton2">
           E
-        </div> */}
+        </div>
       </div>
     )
   }

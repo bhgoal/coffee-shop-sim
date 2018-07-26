@@ -8,7 +8,7 @@ export default class Auth {
     redirectUri: 'http://localhost:3000/callback',
     audience: 'https://bhgoal.auth0.com/userinfo',
     responseType: 'token id_token',
-    scope: 'openid'
+    scope: 'openid profile'
   });
 
   constructor() {
@@ -59,4 +59,24 @@ export default class Auth {
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
   }
+
+  
+
+  getProfile() {
+
+    var accessToken = localStorage.getItem('access_token');
+
+    if (!accessToken) {
+      console.log('Access Token must exist to fetch profile');
+    }
+
+    this.auth0.client.userInfo(accessToken, function(err, profile) {
+      if (profile) {
+        console.log(profile);
+        const userProfile = profile;
+        return userProfile;
+      }
+    });
+  }
+
 }

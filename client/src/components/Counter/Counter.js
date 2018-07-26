@@ -125,7 +125,6 @@ class Counter extends Component {
     var className2 = (this.state.dropHighlight2) ? 'validDrop' : "";
     return (
       <div className="counter">
-      Counter
         <div onClick={(e) => this.handleClick("itemHere1", e)} className={'counterTarget1 ' + className1}>
           Target area 1 {target1}
         </div>
