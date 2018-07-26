@@ -194,34 +194,34 @@ class Espresso extends Component {
       <div className="espresso">
         <img className="espressoImg" src={window.location.origin + "/images/espresso.svg"} />
         <div onClick={(e) => this.handleClick("itemHere1", e)} className={'steam1 ' + className1}>
-          Steam 1 {target1}
+          {target1}
         </div>
         <div onClick={(e) => this.handleClick("itemHere2", e)} className={'spout1 ' + className2}>
-          Spout 1 {target2}
+          {target2}
         </div>
         <div onClick={(e) => this.handleClick("itemHere3", e)} className={'spout2 ' + className3}>
-          Spout 2 {target3}
+          {target3}
         </div>
         <div onClick={(e) => this.handleClick("itemHere4", e)} className={'steam2 ' + className4}>
-          Steam 2 {target4}
+          {target4}
         </div>
         <div onClick={(e) => this.steam("itemHere1", "froth", e)} className="frothButton1">
-          F
+          Froth
         </div>
         <div onClick={(e) => this.steam("itemHere1", "steam", e)}className="steamButton1">
-          S
+          Steam
         </div>
         <div onClick={(e) => this.pullShot("itemHere2", e)} className="shotButton1">
-          E
+          Pull Shot
         </div>
         <div onClick={(e) => this.steam("itemHere4", "froth", e)}className="frothButton2">
-          F
+          Froth
         </div>
         <div onClick={(e) => this.steam("itemHere4", "steam", e)} className="steamButton2">
-          S
+          Steam
         </div>
         <div onClick={(e) => this.pullShot("itemHere3", e)}className="shotButton2">
-          E
+          Pull Shot
         </div>
       </div>
     )

@@ -8,7 +8,7 @@
 .counterTarget1 {
     position: absolute;
     bottom: 0;
-    background: rgba(0, 255, 55, 0.3);
+    left: 2%;
     line-height: 100px;
     height: 100px;
     width: 100px;
@@ -17,8 +17,7 @@
 .counterTarget2 {
     position: absolute;
     bottom: 0;
-    right: 0;
-    background: rgba(0, 255, 55, 0.3);
+    right: 2%;
     line-height: 100px;
     height: 100px;
     width: 100px;

@@ -174,13 +174,10 @@ class Syrups extends Component {
           {target3}
         </div>
         <div onClick={(e) => this.dispenseSyrup("1", e)} className="syrupButton1">
-          V
         </div>
         <div onClick={(e) => this.dispenseSyrup("2", e)}className="syrupButton2">
-          C
         </div>
         <div onClick={(e) => this.dispenseSyrup("3", e)}className="syrupButton3">
-          M
         </div>
       </div>
     )

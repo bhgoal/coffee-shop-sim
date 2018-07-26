@@ -12,7 +12,7 @@ import Espresso from "../../components/Espresso";
 import Fridge from "../../components/Fridge";
 import Trash from "../../components/Trash";
 import Orders from "../../components/Orders";
-import SteamWand from "../../components/SteamWand";
+import Cursor from "../../components/Cursor";
 import Storage from "../../components/Storage";
 import Syrups from "../../components/Syrups";
 import Cup from "../../components/Cup";
@@ -30,7 +30,11 @@ class Game extends Component {
     orderNum: 0,
     itemInHand: null,
     userData: null,
-    currentScore: 0
+    currentScore: 0,
+    timeRemaining: 60,
+    cursorMove: false,
+    mouseX: 0,
+    mouseY: 0
   };
   
   componentDidMount() {
@@ -72,7 +76,7 @@ class Game extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.orders.length > 4) {
+    if (this.state.orders.length > 5 || this.state.timeRemaining < 1) {
       this.gameOver();
     }
   }
@@ -90,11 +94,18 @@ class Game extends Component {
   }
 
   startOrders = () => {
-    this.interval = setInterval(this.generateOrder, 1000);
+    this.generateOrder();
+    this.interval = setInterval(this.generateOrder, 10000);
+    this.timer = setInterval(this.tick, 1000);
+  }
+
+  tick = () => {
+    this.setState({timeRemaining: this.state.timeRemaining - 1});
   }
 
   stopOrders = () => {
     clearInterval(this.interval);
+    clearInterval(this.timer);
   }
 
   generateOrder = () => {
@@ -252,28 +263,14 @@ class Game extends Component {
   }
 
   handleCursorChange = (item) => {
-    let image;
-    let offset;
+
     if (item) {
-      if (item.type === "cup") {
-        if (item.brownType === "none") {
-          image = "coffeeCup.svg";
-          
-        } else {
-          image = "coffeeCupFilled.svg";
-        }
-        offset = "52 63";
-      } else if (item.type === "milk") {
-        image = "milk.svg";
-        offset = "50 50";
-      } else if (item.type === "pitcher") {
-        image = "pitcher.svg";
-        offset = "45 50";
-      }
-      document.body.style.cursor = `url(/images/${image}) ${offset}, auto`;
+      console.log("move cursor");
+      this.setState({cursorMove: true});
     } else {
-      document.body.style.cursor = "initial";
+      this.setState({cursorMove: false});
     }
+
   }
 
   changeInHand = (updated) => {
@@ -310,17 +307,46 @@ class Game extends Component {
   }
 
   render() {
+
+    const styleScore = {
+      float: "right",
+      background: "rgba(255, 255, 255, 0.93)",
+      borderRadius: "5px",
+      padding: "2%",
+      margin: "5px 6%",
+      border: "1px solid rgba(0, 0, 0, 0.2)",
+      boxShadow: "0 0 1px 2px white",
+      width: "50%",
+      textAlign: "center"
+    }
+
+    const styleButton = {
+      background: "rgba(255, 255, 255, 0.93)",
+      borderRadius: "5px",
+      padding: "2%",
+      margin: "5px 6%",
+      border: "1px solid rgba(0, 0, 0, 0.2)",
+      boxShadow: "0 0 1px 2px white"
+    }
+
     return (
-      <Container fluid >
+      <Container mouseMove={(e) => {this.setState({mouseX: (e.clientX - 450), mouseY: (e.clientY - 90)}); }}>
           <div style={{width: "24%", minHeight: "100%"}}>
-            <button onClick={this.startOrders}>Start</button>
-            <button onClick={this.stopOrders}>Stop</button>
-            Current Score: {this.state.currentScore}, High Score: {this.state.userData ? this.state.userData.highScore : "Loading.."}
+            <div style={styleScore}>{this.state.timeRemaining}</div>
+            <button style={styleButton} onClick={this.startOrders}>Start</button>
+            {/* <button onClick={this.stopOrders}>Stop</button> */}
+            <div style={styleScore}>Current Score: {this.state.currentScore}</div>
+            <div style={styleScore}>High Score: {this.state.userData ? this.state.userData.highScore : "..."}</div>
             <Orders orders={this.state.orders} checkOrder={this.checkOrder} generateOrder={this.generateOrder}/>
           </div>
           <div style={{width: "76%", height: "100%"}}>
             <div style={{position: "relative", width: "100%", "height": "51.2%"}}>
-
+                <Cursor 
+                  cursorMove={this.state.cursorMove}
+                  itemInHand={this.state.itemInHand}
+                  mouseX={this.state.mouseX}
+                  mouseY={this.state.mouseY}
+                />
                 <Brewer 
                   itemInHand={this.state.itemInHand}
                   changeInHand={this.changeInHand}

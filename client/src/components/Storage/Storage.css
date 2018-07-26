@@ -7,13 +7,11 @@
 }
 
 .storageTarget {
-    position: absolute;
-    bottom: 0;
-    background: rgba(0, 128, 0, 0.315);
-    line-height: 100px;
-    height: 100px;
-    width: 100px;
+    height: 100%;
+    width: 100%;
 }
+
+
 
 .cupIsHere {
     background: orange;

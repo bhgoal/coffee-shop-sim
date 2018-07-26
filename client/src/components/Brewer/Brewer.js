@@ -124,10 +124,9 @@ class Brewer extends Component {
       <div className="brewer">
         <img className="brewerImg" src={window.location.origin + "/images/brewer.svg"} />
         <div onClick={(e) => this.handleClick("itemHere", e)} className={'brewerTarget ' + className}>
-          Target area {itemHere}
+          {itemHere}
         </div>
         <div onClick={this.dispense}className="dispenseButton">
-          D
         </div>
       </div>
     )

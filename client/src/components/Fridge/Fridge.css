@@ -10,7 +10,6 @@
     position: absolute;
     bottom: 50%;
     left: 6%;
-    background: rgba(0, 255, 55, 0.3);
     line-height: 100px;
     height: 40%;
     width: 40%;
@@ -20,7 +19,6 @@
     position: absolute;
     bottom: 50%;
     right: 6%;
-    background: rgba(0, 255, 55, 0.3);
     line-height: 100px;
     height: 40%;
     width: 40%;
@@ -30,7 +28,6 @@
     position: absolute;
     bottom: 4.5%;
     left: 6%;
-    background: rgba(0, 255, 55, 0.3);
     line-height: 100px;
     height: 40%;
     width: 40%;
@@ -40,7 +37,6 @@
     position: absolute;
     bottom: 4.5%;
     right: 6%;
-    background: rgba(0, 255, 55, 0.3);
     line-height: 100px;
     height: 40%;
     width: 40%;

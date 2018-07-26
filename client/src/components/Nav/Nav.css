@@ -5,3 +5,7 @@
 .noLink:hover {
     cursor: initial;
 }
+
+.bg-primary {
+    background-color: rgb(54, 44, 39)!important;
+}

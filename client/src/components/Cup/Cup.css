@@ -12,25 +12,25 @@
 
 .hasBrown {
     position: absolute;
-    top: 8px;
+    top: 30%;
     left: 0;
-    right: 0;
+    right: 16%;
     margin: 0 auto;
 }
 
 .hasSyrup {
     position: absolute;
-    top: 20px;
+    top: 11%;
     left: 0;
-    right: 0;
+    right: 16%;
     margin: 0 auto;
 }
 
 .cupHasMilk {
     position: absolute;
-    top: 32px;
+    top: -7%;
     left: 0;
-    right: 0;
+    right: 16%;
     margin: 0 auto;
 }
 

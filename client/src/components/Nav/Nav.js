@@ -13,12 +13,6 @@ const Nav = props => (
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         <li className="nav-item">
-          <a className="nav-link" href="/">Search</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link disabled" href="#">Saved</a>
-        </li>
-        <li className="nav-item">
           {
             props.auth.isAuthenticated() ?
               (<a className="nav-link" href="/" onClick={(event) => (event.preventDefault(), props.auth.logout())}>Log out</a>)

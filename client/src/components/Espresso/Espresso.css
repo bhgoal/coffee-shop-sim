@@ -7,106 +7,129 @@
 
 .steam1 {
     position: absolute;
-    bottom: 0;
-    background: transparent;
+    left: 5%;
+    bottom: 23.5%;
     line-height: 100px;
     height: 100px;
-    width: 100px;
+    width: 15%;
 }
 
 .spout1 {
     position: absolute;
-    left: 25%;
-    bottom: 0;
-    background: transparent;
+    left: 24.9%;
+    bottom: 23.5%;
     line-height: 100px;
     height: 100px;
-    width: 100px;
+    width: 16%;
 }
 
 .spout2 {
     position: absolute;
-    left: 50%;
-    bottom: 0;
-    background: transparent;
+    right: 24.9%;
+    bottom: 23.5%;
     line-height: 100px;
     height: 100px;
-    width: 100px;
+    width: 16%;
 }
 
 .steam2 {
     position: absolute;
-    left: 75%;
-    bottom: 0;
+    right: 5%;
+    bottom: 23.5%;
     line-height: 100px;
     height: 100px;
-    width: 100px;
+    width: 15%;
 }
 
 .frothButton1 {
     position: absolute;
+    font-size: 12px;
     top: 10px;
     left: 5%;
-    background: red;
+    background: rgb(255, 0, 0, 0.7);
     line-height: 30px;
     height: 30px;
-    width: 30px;
-    cursor: pointer;
+    padding: 0 1%;
+    border-radius: 5px;
 }
 
 .steamButton1 {
     position: absolute;
+    font-size: 12px;
     top: 44px;
     left: 5%;
-    background: red;
+    background: rgb(255, 0, 0, 0.7);
     line-height: 30px;
     height: 30px;
-    width: 30px;
-    cursor: pointer;
+    padding: 0 1%;
+    border-radius: 5px;
 }
 
 .shotButton1 {
     position: absolute;
+    font-size: 12px;
     top: 10px;
     left: 25%;
-    background: red;
+    background: rgb(255, 0, 0, 0.7);
     line-height: 30px;
     height: 30px;
-    width: 30px;
-    cursor: pointer;
+    padding: 0 1%;
+    border-radius: 5px;
 }
 
 .frothButton2 {
     position: absolute;
+    font-size: 12px;
     top: 10px;
     right: 5%;
-    background: red;
+    background: rgb(255, 0, 0, 0.7);
     line-height: 30px;
     height: 30px;
-    width: 30px;
-    cursor: pointer;
+    padding: 0 1%;
+    border-radius: 5px;
 }
 
 .steamButton2 {
     position: absolute;
+    font-size: 12px;
     top: 44px;
     right: 5%;
-    background: red;
+    background: rgb(255, 0, 0, 0.7);
     line-height: 30px;
     height: 30px;
-    width: 30px;
-    cursor: pointer;
+    padding: 0 1%;
+    border-radius: 5px;
 }
 
 .shotButton2 {
     position: absolute;
+    font-size: 12px;
     top: 10px;
-    left: 75%;
-    background: red;
+    right: 25%;
+    background: rgb(255, 0, 0, 0.7);
     line-height: 30px;
     height: 30px;
-    width: 30px;
-    cursor: pointer;
+    padding: 0 1%;
+    border-radius: 5px;
+}
+
+.frothButton1:hover {
+    box-shadow: 0 0 20px 8px red;
+}
+.steamButton1:hover {
+    box-shadow: 0 0 20px 8px red;
+}
+.shotButton1:hover {
+    box-shadow: 0 0 20px 8px red;
+}
+.frothButton2:hover {
+    box-shadow: 0 0 20px 8px red;
+}
+.steamButton2:hover {
+    box-shadow: 0 0 20px 8px red;
+}
+.shotButton2:hover {
+    box-shadow: 0 0 20px 8px red;
 }
 
 .cupIsHere {

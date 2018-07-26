@@ -7,11 +7,11 @@
 
 .brewerTarget {
     position: absolute;
+    left: 15%;
     bottom: 0;
-    background: rgba(0, 255, 55, 0.3);
     line-height: 100px;
     height: 100px;
-    width: 100px;
+    width: 70%;
 }
 
 .validDrop {
@@ -26,12 +26,16 @@
     position: absolute;
     bottom: 33%;
     left: 40%;
-    background: rgba(255, 0, 0, 0.7);
+    background: rgba(255, 0, 0, 0.3);
+    border-radius: 5px;
     line-height: 30px;
     height: 11%;
     width: 20%;
-    cursor: pointer;
     text-align: center;
+}
+
+.dispenseButton:hover {
+    box-shadow: 0 0 20px 2px red;
 }
 
 .brewerImg {
