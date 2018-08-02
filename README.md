@@ -1,42 +1,24 @@
-# Create React Express App
+# Coffee Shop Simulator
 
-## About This Boilerplate
+![alt text](https://github.com/bhgoal/bhgoal.github.io/blob/master/assets/images/coffeeShopSim.png "Coffee Shop Sim screenshot")
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+## Summary
+Coffee Shop Simulator is an interactive beverage building game where players can simulate working as a barista, making coffee and espresso drinks as fast as possible before time runs out.
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+## About
+It utilizes React to create the user interface, which depicts a barista workstation consisting of a coffee brewer, syrup bottles, espresso machine, refrigerator, and other elements necessary for gameplay.
 
-## Starting the app locally
+## Usage:
+> node liri.js *command* *searchTerm*
 
-Start by installing front and backend dependencies. While in this directory, run the following commands:
+### Command:
+- *my-tweets* retrieves the 20 most recent tweets from your Twitter account. No *searchTerm* is necessary.  
+- *spotify-this-song* searches the Spotify catalog and returns song information including title, artist, album, and a link to an mp3 preview.  
+- *movie-this* searches the IMDB database and returns movie information including title, year, user ratings, plot, and more.  
+- *do-what-it-says* allows users to run a custom bulk sequence of commands stored in the random.txt file. Commands must be comma separated, with double quotes around *searchTerms*.
 
-```
-yarn install
-cd client
-yarn install
-cd ..
-``
+### searchTerm:
+*searchTerm* is the content that the user wants to search for, and can be a single word or multiple. It is used for Spotify and IMDB searches, but not for the Twitter function.
 
-After both installations complete, run the following command in your terminal:
-
-```
-yarn start
-```
-
-That's it, your app should be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
-
-## Deployment (Heroku)
-
-After confirming that you have an up to date git repository and a Heroku app created, complete the following:
-
-1. Build the React app for production by running the following command:
-
-```
-yarn build
-```
-
-2. Add and commit all changes to git
-
-3. Push to Heroku
-
-If all previous steps were followed correctly, your application should be deployed to Heroku!
+## Notes:
+Output will be logged to the console as well as to the log.txt file.
