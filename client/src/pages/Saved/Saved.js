@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import DeleteBtn from "../../components/DeleteBtn";
-import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
@@ -66,9 +65,6 @@ class Saved extends Component {
       <Container fluid>
         <Row>
           <Col size="md-8 sm-12">
-            <Jumbotron>
-              <h1>Articles On My List</h1>
-            </Jumbotron>
             {this.state.articles.length ? (
               <List>
                 {this.state.articles.map(article => (

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import SaveBtn from "../../components/SaveBtn";
-import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
@@ -50,7 +49,6 @@ class Game extends Component {
 
     if (!accessToken) {
       console.log('Access Token must exist to fetch profile');
-      auth.login();
     } else {
       auth.auth0.client.userInfo(accessToken, function(err, profile) {
         if (profile) {
@@ -332,7 +330,7 @@ class Game extends Component {
     return (
       <Container mouseMove={(e) => {this.setState({mouseX: (e.clientX - 450), mouseY: (e.clientY - 90)}); }}>
           <div style={{width: "24%", minHeight: "100%"}}>
-            <div style={styleScore}>{this.state.timeRemaining}</div>
+            <div style={styleScore}>Time Left: {this.state.timeRemaining}</div>
             <button style={styleButton} onClick={this.startOrders}>Start</button>
             {/* <button onClick={this.stopOrders}>Stop</button> */}
             <div style={styleScore}>Current Score: {this.state.currentScore}</div>
@@ -377,6 +375,7 @@ class Game extends Component {
                 <Storage
                   itemInHand={this.state.itemInHand}
                   handleItemPickup={this.handleItemPickup}
+                  emptyHand={this.emptyHand}
                 ></Storage>
                 <Fridge
                   itemInHand={this.state.itemInHand}

@@ -17,8 +17,9 @@ class Storage extends Component {
         itemHere: {...this.state.itemHere, id: this.state.itemHere.id + 1}
       }); 
       console.log("new cup picked up");
-    } else {
-      console.log("already holding item");
+    } else if (this.props.itemInHand.type === "cup" && this.props.itemInHand.brownType === "none" && this.props.itemInHand.milk.type === "none" && this.props.itemInHand.syrup === "none"){
+      this.props.emptyHand();
+      console.log("empty cup replaced");
     }
   };
 

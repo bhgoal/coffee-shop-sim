@@ -10,36 +10,25 @@ const components = {
 
 class Syrups extends Component {
   state = {
-    dropHighlight1: false,
-    dropHighlight2: false,
-    dropHighlight3: false,
+    itemHere0: null,
     itemHere1: null,
     itemHere2: null,
-    itemHere3: null
+    dropHighlight: [false, false, false]
   };
 
   componentDidUpdate = () => {
-    if (this.props.itemInHand) {
-      if (this.props.itemInHand.type === "cup" && this.state.dropHighlight1 === false && this.state.itemHere1 === null) {
-        this.setState({dropHighlight1: true});
+    this.state.dropHighlight.forEach((value, i) => {
+      let dropHighlight = this.state.dropHighlight;
+      if (this.props.itemInHand) {
+        if (this.props.itemInHand.type === "cup" && this.state.dropHighlight[i] === false && this.state["itemHere" + i] === null) {
+          dropHighlight[i] = true;
+          this.setState({dropHighlight: dropHighlight});
+        }
+      } else if (this.state.dropHighlight[i] === true) {
+        dropHighlight[i] = false;
+        this.setState({dropHighlight: dropHighlight});
       }
-    } else if (this.state.dropHighlight1 === true) {
-      this.setState({dropHighlight1: false});
-    }
-    if (this.props.itemInHand) {
-      if (this.props.itemInHand.type === "cup" && this.state.dropHighlight2 === false && this.state.itemHere2 === null) {
-        this.setState({dropHighlight2: true});
-      }
-    } else if (this.state.dropHighlight2 === true) {
-      this.setState({dropHighlight2: false});
-    }
-    if (this.props.itemInHand) {
-      if (this.props.itemInHand.type === "cup" && this.state.dropHighlight3 === false && this.state.itemHere3 === null) {
-        this.setState({dropHighlight3: true});
-      }
-    } else if (this.state.dropHighlight3 === true) {
-      this.setState({dropHighlight3: false});
-    }
+    });
   }
 
   validate = (id, type) => {
@@ -50,9 +39,9 @@ class Syrups extends Component {
       return (type === validStack[this.state[id].type])
     } else {
       const validPlace = {
+        itemHere0: "cup",
         itemHere1: "cup",
-        itemHere2: "cup",
-        itemHere3: "cup"
+        itemHere2: "cup"
       }
       return (type === validPlace[id])
     }
@@ -133,6 +122,13 @@ class Syrups extends Component {
   
 
   render() {
+    let target0;
+    if (this.state.itemHere0 != null) {
+      const Tag0 = components[this.state.itemHere0.type];
+      target0 = <Tag0 cupDisplay={this.state.itemHere0} />
+    } else {
+      target0 = null;
+    }
     let target1;
     if (this.state.itemHere1 != null) {
       const Tag1 = components[this.state.itemHere1.type];
@@ -147,37 +143,30 @@ class Syrups extends Component {
     } else {
       target2 = null;
     }
-    let target3;
-    if (this.state.itemHere3 != null) {
-      const Tag3 = components[this.state.itemHere3.type];
-      target3 = <Tag3 cupDisplay={this.state.itemHere3} />
-    } else {
-      target3 = null;
-    }
     
-    var className1 = (this.state.dropHighlight1) ? 'validDrop' : "";
-    var className2 = (this.state.dropHighlight2) ? 'validDrop' : "";
-    var className3 = (this.state.dropHighlight3) ? 'validDrop' : "";
+    var className0 = (this.state.dropHighlight[0]) ? 'validDrop' : "";
+    var className1 = (this.state.dropHighlight[1]) ? 'validDrop' : "";
+    var className2 = (this.state.dropHighlight[2]) ? 'validDrop' : "";
 
     return (
       <div className="syrups">
         <img className="bottle" src={window.location.origin + "/images/vanilla.svg"} />
         <img className="bottle" src={window.location.origin + "/images/caramel.svg"} />
         <img className="bottle" src={window.location.origin + "/images/mocha.svg"} />
+        <div onClick={(e) => this.handleClick("itemHere0", e)} className={'syrup0 ' + className0}>
+          {target0}
+        </div>
         <div onClick={(e) => this.handleClick("itemHere1", e)} className={'syrup1 ' + className1}>
           {target1}
         </div>
         <div onClick={(e) => this.handleClick("itemHere2", e)} className={'syrup2 ' + className2}>
           {target2}
         </div>
-        <div onClick={(e) => this.handleClick("itemHere3", e)} className={'syrup3 ' + className3}>
-          {target3}
+        <div onClick={(e) => this.dispenseSyrup("0", e)} className="syrupButton0">
         </div>
-        <div onClick={(e) => this.dispenseSyrup("1", e)} className="syrupButton1">
+        <div onClick={(e) => this.dispenseSyrup("1", e)}className="syrupButton1">
         </div>
         <div onClick={(e) => this.dispenseSyrup("2", e)}className="syrupButton2">
-        </div>
-        <div onClick={(e) => this.dispenseSyrup("3", e)}className="syrupButton3">
         </div>
       </div>
     )
