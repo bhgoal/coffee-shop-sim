@@ -43,6 +43,11 @@
     width: 40%;
 }
 
+.pickupHover:hover {
+    box-shadow: 0 0 20px 2px white;
+    cursor: pointer;
+}
+
 .validDrop {
     box-shadow: 0 0 20px 8px lightgreen;
 }

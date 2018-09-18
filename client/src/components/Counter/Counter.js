@@ -107,17 +107,27 @@ class Counter extends Component {
 
   render() {
     let target1;
+    let pickupHover1;
     if (this.state.itemHere1 != null) {
+      if (!this.props.itemInHand) {
+        pickupHover1 = "pickupHover";
+      }
       const Tag1 = components[this.state.itemHere1.type];
       target1 = <Tag1 cupDisplay={this.state.itemHere1} />
     } else {
+      pickupHover1 = "";
       target1 = null;
     }
     let target2;
+    let pickupHover2;
     if (this.state.itemHere2 != null) {
+      if (!this.props.itemInHand) {
+        pickupHover2 = "pickupHover";
+      }
       const Tag2 = components[this.state.itemHere2.type];
       target2 = <Tag2 cupDisplay={this.state.itemHere2} />
     } else {
+      pickupHover2 = "";
       target2 = null;
     }
     
@@ -125,10 +135,10 @@ class Counter extends Component {
     var className2 = (this.state.dropHighlight2) ? 'validDrop' : "";
     return (
       <div className="counter">
-        <div onClick={(e) => this.handleClick("itemHere1", e)} className={'counterTarget1 ' + className1}>
+        <div onClick={(e) => this.handleClick("itemHere1", e)} className={'counterTarget1 ' + className1 + pickupHover1}>
           {target1}
         </div>
-        <div onClick={(e) => this.handleClick("itemHere2", e)} className={'counterTarget2 ' + className2}>
+        <div onClick={(e) => this.handleClick("itemHere2", e)} className={'counterTarget2 ' + className2 + pickupHover2}>
           {target2}
         </div>
       </div>

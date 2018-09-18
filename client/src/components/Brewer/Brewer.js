@@ -113,17 +113,22 @@ class Brewer extends Component {
 
   render() {
     let itemHere;
+    let pickupHover;
     if (this.state.itemHere != null) {
+      if (!this.props.itemInHand) {
+        pickupHover = "pickupHover";
+      }
       const Tag = components[this.state.itemHere.type];
       itemHere = <Tag cupDisplay={this.state.itemHere} />
     } else {
+      pickupHover = "";
       itemHere = null;
     }
     var className = (this.state.dropHighlight) ? 'validDrop' : "";
     return (
       <div className="brewer">
         <img className="brewerImg" src={window.location.origin + "/images/brewer.svg"} />
-        <div onClick={(e) => this.handleClick("itemHere", e)} className={'brewerTarget ' + className}>
+        <div onClick={(e) => this.handleClick("itemHere", e)} className={'brewerTarget ' + className + pickupHover}>
           {itemHere}
         </div>
         <div onClick={this.dispense}className="dispenseButton">

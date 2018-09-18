@@ -158,31 +158,51 @@ class Espresso extends Component {
 
   render() {
     let target1;
+    let pickupHover1;
     if (this.state.itemHere1 != null) {
+      if (!this.props.itemInHand) {
+        pickupHover1 = "pickupHover";
+      }
       const Tag1 = components[this.state.itemHere1.type];
       target1 = <Tag1 cupDisplay={this.state.itemHere1} />
     } else {
+      pickupHover1 = "";
       target1 = null;
     }
     let target2;
+    let pickupHover2;
     if (this.state.itemHere2 != null) {
+      if (!this.props.itemInHand) {
+        pickupHover2 = "pickupHover";
+      }
       const Tag2 = components[this.state.itemHere2.type];
       target2 = <Tag2 cupDisplay={this.state.itemHere2} />
     } else {
+      pickupHover2 = "";
       target2 = null;
     }
     let target3;
+    let pickupHover3;
     if (this.state.itemHere3 != null) {
+      if (!this.props.itemInHand) {
+        pickupHover3 = "pickupHover";
+      }
       const Tag3 = components[this.state.itemHere3.type];
       target3 = <Tag3 cupDisplay={this.state.itemHere3} />
     } else {
+      pickupHover3 = "";
       target3 = null;
     }
     let target4;
+    let pickupHover4;
     if (this.state.itemHere4 != null) {
+      if (!this.props.itemInHand) {
+        pickupHover4 = "pickupHover";
+      }
       const Tag4 = components[this.state.itemHere4.type];
       target4 = <Tag4 cupDisplay={this.state.itemHere4} />
     } else {
+      pickupHover4 = "";
       target4 = null;
     }
     
@@ -193,16 +213,16 @@ class Espresso extends Component {
     return (
       <div className="espresso">
         <img className="espressoImg" src={window.location.origin + "/images/espresso.svg"} />
-        <div onClick={(e) => this.handleClick("itemHere1", e)} className={'steam1 ' + className1}>
+        <div onClick={(e) => this.handleClick("itemHere1", e)} className={'steam1 ' + className1 + pickupHover1}>
           {target1}
         </div>
-        <div onClick={(e) => this.handleClick("itemHere2", e)} className={'spout1 ' + className2}>
+        <div onClick={(e) => this.handleClick("itemHere2", e)} className={'spout1 ' + className2 + pickupHover2}>
           {target2}
         </div>
-        <div onClick={(e) => this.handleClick("itemHere3", e)} className={'spout2 ' + className3}>
+        <div onClick={(e) => this.handleClick("itemHere3", e)} className={'spout2 ' + className3 + pickupHover3}>
           {target3}
         </div>
-        <div onClick={(e) => this.handleClick("itemHere4", e)} className={'steam2 ' + className4}>
+        <div onClick={(e) => this.handleClick("itemHere4", e)} className={'steam2 ' + className4 + pickupHover4}>
           {target4}
         </div>
         <div onClick={(e) => this.steam("itemHere1", "froth", e)} className="frothButton1">

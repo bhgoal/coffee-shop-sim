@@ -95,6 +95,7 @@ class Game extends Component {
         this.getUserData();
       }
     }
+    console.log("Game over");
   }
 
   startOrders = () => {
@@ -388,7 +389,8 @@ class Game extends Component {
                   handleItemPickup={this.handleItemPickup}
                 ></Fridge>
                 <Trash
-                  emptyHand={this.emptyHand}></Trash>
+                  emptyHand={this.emptyHand}
+                  itemInHand={this.state.itemInHand}></Trash>
             </div>
           </div>
 

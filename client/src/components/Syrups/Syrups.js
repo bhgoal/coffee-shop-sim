@@ -123,24 +123,39 @@ class Syrups extends Component {
 
   render() {
     let target0;
+    let pickupHover0;
     if (this.state.itemHere0 != null) {
+      if (!this.props.itemInHand) {
+        pickupHover0 = "pickupHover";
+      }
       const Tag0 = components[this.state.itemHere0.type];
       target0 = <Tag0 cupDisplay={this.state.itemHere0} />
     } else {
+      pickupHover0 = "";
       target0 = null;
     }
     let target1;
+    let pickupHover1;
     if (this.state.itemHere1 != null) {
+      if (!this.props.itemInHand) {
+        pickupHover1 = "pickupHover";
+      }
       const Tag1 = components[this.state.itemHere1.type];
       target1 = <Tag1 cupDisplay={this.state.itemHere1} />
     } else {
+      pickupHover1 = "";
       target1 = null;
     }
     let target2;
+    let pickupHover2;
     if (this.state.itemHere2 != null) {
+      if (!this.props.itemInHand) {
+        pickupHover2 = "pickupHover";
+      }
       const Tag2 = components[this.state.itemHere2.type];
       target2 = <Tag2 cupDisplay={this.state.itemHere2} />
     } else {
+      pickupHover2 = "";
       target2 = null;
     }
     
@@ -153,13 +168,13 @@ class Syrups extends Component {
         <img className="bottle" src={window.location.origin + "/images/vanilla.svg"} />
         <img className="bottle" src={window.location.origin + "/images/caramel.svg"} />
         <img className="bottle" src={window.location.origin + "/images/mocha.svg"} />
-        <div onClick={(e) => this.handleClick("itemHere0", e)} className={'syrup0 ' + className0}>
+        <div onClick={(e) => this.handleClick("itemHere0", e)} className={'syrup0 ' + className0 + pickupHover0}>
           {target0}
         </div>
-        <div onClick={(e) => this.handleClick("itemHere1", e)} className={'syrup1 ' + className1}>
+        <div onClick={(e) => this.handleClick("itemHere1", e)} className={'syrup1 ' + className1 + pickupHover1}>
           {target1}
         </div>
-        <div onClick={(e) => this.handleClick("itemHere2", e)} className={'syrup2 ' + className2}>
+        <div onClick={(e) => this.handleClick("itemHere2", e)} className={'syrup2 ' + className2 + pickupHover2}>
           {target2}
         </div>
         <div onClick={(e) => this.dispenseSyrup("0", e)} className="syrupButton0">
