@@ -40,7 +40,7 @@ class Game extends Component {
     //this.loadDrinks();
     //this.generateOrder();
     //console.log(this.state.orders);
-    this.checkLogin();
+    //this.checkLogin();
     //setTimeout(this.getUserData, 2000);
   }
 
