@@ -81,7 +81,7 @@ class Game extends Component {
 
   gameOver = () => {
     this.stopOrders();
-    if (auth.isAuthenticated) {
+    if (this.state.userData) {
       if (!this.state.userData.highScore) {
         API.saveArticle({
           highScore: this.state.currentScore
