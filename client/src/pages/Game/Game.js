@@ -81,13 +81,19 @@ class Game extends Component {
 
   gameOver = () => {
     this.stopOrders();
-    if (this.state.currentScore > this.state.userData.highScore) {
-      console.log(this.state.currentScore);
-      API.updateArticle({
-        userId: this.state.userData.userId,
-        highScore: this.state.currentScore
-      }).catch(err => console.log(err));
-      this.getUserData();
+    if (auth.isAuthenticated) {
+      if (!this.state.userData.highScore) {
+        API.saveArticle({
+          highScore: this.state.currentScore
+        }).catch(err => console.log(err));
+      } else if (this.state.currentScore > this.state.userData.highScore) {
+        console.log(this.state.currentScore);
+        API.updateArticle({
+          userId: this.state.userData.userId,
+          highScore: this.state.currentScore
+        }).catch(err => console.log(err));
+        this.getUserData();
+      }
     }
   }
 
