@@ -389,8 +389,11 @@ class Game extends Component {
                   handleItemPickup={this.handleItemPickup}
                 ></Fridge>
                 <Trash
+                  itemInHand={this.state.itemInHand}
+                  changeInHand={this.changeInHand} 
                   emptyHand={this.emptyHand}
-                  itemInHand={this.state.itemInHand}></Trash>
+                  ></Trash>
+                  
             </div>
           </div>
 

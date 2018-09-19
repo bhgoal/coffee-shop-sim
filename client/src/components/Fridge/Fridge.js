@@ -10,70 +10,47 @@ const components = {
 
 class Fridge extends Component {
   state = {
-    dropHighlight1: false,
-    dropHighlight2: false,
-    dropHighlight3: false,
-    dropHighlight4: false,
-    itemHere1: {type: "milk", id: 0, milkType: "whole"},
-    itemHere2: {type: "milk", id: 0, milkType: "halfn"},
-    itemHere3: {type: "milk", id: 0, milkType: "two"},
-    itemHere4: null
+    itemHere0: {type: "milk", id: 0, milkType: "whole"},
+    itemHere1: {type: "milk", id: 0, milkType: "halfn"},
+    itemHere2: {type: "milk", id: 0, milkType: "two"},
+    itemHere3: null,
+    dropHighlight: [false, false, false, false]
   };
 
   componentDidUpdate = () => {
-    if (this.props.itemInHand) {
-      if (this.props.itemInHand.type === "milk" && this.state.dropHighlight1 === false && this.state.itemHere1 === null) {
-        this.setState({dropHighlight1: true});
+    this.state.dropHighlight.forEach((value, i) => {
+      let dropHighlight = this.state.dropHighlight;
+      let itemHere = this.state["itemHere" + i];
+      if (this.props.itemInHand && !itemHere) {
+        if (this.state.dropHighlight[i] === false) {
+          if (this.validate("itemHere" + i, this.props.itemInHand)) {
+            dropHighlight[i] = true;
+            this.setState({dropHighlight: dropHighlight});
+          }
+        }
+      } else if (this.state.dropHighlight[i] === true) {
+        dropHighlight[i] = false;
+        this.setState({dropHighlight: dropHighlight});
       }
-    } else if (this.state.dropHighlight1 === true) {
-      this.setState({dropHighlight1: false});
-    }
-    if (this.props.itemInHand) {
-      if (this.props.itemInHand.type === "milk" && this.state.dropHighlight2 === false && this.state.itemHere2 === null) {
-        this.setState({dropHighlight2: true});
-      }
-    } else if (this.state.dropHighlight2 === true) {
-      this.setState({dropHighlight2: false});
-    }
-    if (this.props.itemInHand) {
-      if (this.props.itemInHand.type === "milk" && this.state.dropHighlight3 === false && this.state.itemHere3 === null) {
-        this.setState({dropHighlight3: true});
-      }
-    } else if (this.state.dropHighlight3 === true) {
-      this.setState({dropHighlight3: false});
-    }
-    if (this.props.itemInHand) {
-      if (this.props.itemInHand.type === "milk" && this.state.dropHighlight4 === false && this.state.itemHere4 === null) {
-        this.setState({dropHighlight4: true});
-      }
-    } else if (this.state.dropHighlight4 === true) {
-      this.setState({dropHighlight4: false});
-    }
+    });
   }
 
-  validate = (id, type) => {
-    if (this.state[id]) {
-      const validStack = {
-        pitcher: "milk",
-        cup: "pitcher"
-      }
-      return (type === validStack[this.state[id].type])
-    } else {
-      const validPlace = {
-        itemHere1: "milk",
-        itemHere2: "milk",
-        itemHere3: "milk",
-        itemHere4: "milk"
-      }
-      return (type === validPlace[id])
+  validate = (id, inHand) => {
+    const validPlace = {
+      itemHere0: "milk",
+      itemHere1: "milk",
+      itemHere2: "milk",
+      itemHere3: "milk"
     }
+    return (inHand.type === validPlace[id])
+    
   }
 
   handleClick = (id, e) => {
     if (this.props.itemInHand != null) {
       if (this.state[id] != null) {
         console.log("space occupied");
-      } else if (this.validate(id, this.props.itemInHand.type)) {
+      } else if (this.validate(id, this.props.itemInHand)) {
         this.setState({[id]: this.props.itemInHand});
         this.props.handleItemPickup(null);
         console.log("cup placed");
@@ -94,6 +71,18 @@ class Fridge extends Component {
   
 
   render() {
+    let target0;
+    let pickupHover0;
+    if (this.state.itemHere0 != null) {
+      if (!this.props.itemInHand) {
+        pickupHover0 = "pickupHover";
+      }
+      const Tag0 = components[this.state.itemHere0.type];
+      target0 = <Tag0 cupDisplay={this.state.itemHere0} />
+    } else {
+      pickupHover0 = "";
+      target0 = null;
+    }
     let target1;
     let pickupHover1;
     if (this.state.itemHere1 != null) {
@@ -130,24 +119,17 @@ class Fridge extends Component {
       pickupHover3 = "";
       target3 = null;
     }
-    let target4;
-    let pickupHover4;
-    if (this.state.itemHere4 != null) {
-      if (!this.props.itemInHand) {
-        pickupHover4 = "pickupHover";
-      }
-      const Tag4 = components[this.state.itemHere4.type];
-      target4 = <Tag4 cupDisplay={this.state.itemHere4} />
-    } else {
-      pickupHover4 = "";
-      target4 = null;
-    }
-    var className1 = (this.state.dropHighlight1) ? 'validDrop' : "";
-    var className2 = (this.state.dropHighlight2) ? 'validDrop' : "";
-    var className3 = (this.state.dropHighlight3) ? 'validDrop' : "";
-    var className4 = (this.state.dropHighlight4) ? 'validDrop' : "";
+  
+    var className0 = (this.state.dropHighlight[0]) ? 'validDrop ' : "";
+    var className1 = (this.state.dropHighlight[1]) ? 'validDrop ' : "";
+    var className2 = (this.state.dropHighlight[2]) ? 'validDrop ' : "";
+    var className3 = (this.state.dropHighlight[3]) ? 'validDrop ' : "";
+    
     return (
       <div className="fridge">
+        <div onClick={(e) => this.handleClick("itemHere0", e)} className={'fridgeSpace0 ' + className0 + pickupHover0}>
+          {target0}
+        </div>
         <div onClick={(e) => this.handleClick("itemHere1", e)} className={'fridgeSpace1 ' + className1 + pickupHover1}>
           {target1}
         </div>
@@ -156,9 +138,6 @@ class Fridge extends Component {
         </div>
         <div onClick={(e) => this.handleClick("itemHere3", e)} className={'fridgeSpace3 ' + className3 + pickupHover3}>
           {target3}
-        </div>
-        <div onClick={(e) => this.handleClick("itemHere4", e)} className={'fridgeSpace4 ' + className4 + pickupHover4}>
-          {target4}
         </div>
       </div>
     )

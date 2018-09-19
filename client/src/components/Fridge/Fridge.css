@@ -6,7 +6,7 @@
     top: 14%;
 }
 
-.fridgeSpace1 {
+.fridgeSpace0 {
     position: absolute;
     bottom: 50%;
     left: 6%;
@@ -16,7 +16,7 @@
     border-radius: 0.5em;
 }
 
-.fridgeSpace2 {
+.fridgeSpace1 {
     position: absolute;
     bottom: 50%;
     right: 6%;
@@ -25,7 +25,7 @@
     width: 40%;
 }
 
-.fridgeSpace3 {
+.fridgeSpace2 {
     position: absolute;
     bottom: 4.5%;
     left: 6%;
@@ -34,7 +34,7 @@
     width: 40%;
 }
 
-.fridgeSpace4 {
+.fridgeSpace3 {
     position: absolute;
     bottom: 4.5%;
     right: 6%;

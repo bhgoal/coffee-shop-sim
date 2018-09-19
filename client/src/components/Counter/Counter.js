@@ -12,36 +12,40 @@ const components = {
 
 class Counter extends Component {
   state = {
-    dropHighlight1: false,
-    dropHighlight2: false,
-    itemHere1: {type: "pitcher", id: 0, milk: {type: "none", status: "none"}},
-    itemHere2: null
+    itemHere0: {type: "pitcher", id: 0, milk: {type: "none", status: "none"}},
+    itemHere1: null,
+    dropHighlight: [false, false]
   };
 
   componentDidUpdate = () => {
-    if (this.props.itemInHand) {
-      if (this.state.dropHighlight1 === false && ((this.state.itemHere1 === null) || (this.state.itemHere1 && this.state.itemHere1.type === "pitcher" && this.props.itemInHand.type === "milk"))) {
-        this.setState({dropHighlight1: true});
+    this.state.dropHighlight.forEach((value, i) => {
+      let dropHighlight = this.state.dropHighlight;
+      let itemHere = this.state["itemHere" + i];
+      if (this.props.itemInHand) {
+        if (this.state.dropHighlight[i] === false) {
+          if (this.validate("itemHere" + i, this.props.itemInHand)) {
+            dropHighlight[i] = true;
+            this.setState({dropHighlight: dropHighlight});
+          }
+        }
+      } else if (this.state.dropHighlight[i] === true) {
+        dropHighlight[i] = false;
+        this.setState({dropHighlight: dropHighlight});
       }
-    } else if (this.state.dropHighlight1 === true) {
-      this.setState({dropHighlight1: false});
-    }
-    if (this.props.itemInHand) {
-      if (this.state.dropHighlight2 === false && ((this.state.itemHere2 === null) || (this.state.itemHere2 && this.state.itemHere2.type === "pitcher" && this.props.itemInHand.type === "milk"))) {
-        this.setState({dropHighlight2: true});
-      }
-    } else if (this.state.dropHighlight2 === true) {
-      this.setState({dropHighlight2: false});
-    }
+    });
   }
 
-  validate = (id, type) => {
+  validate = (id, inHand) => {
     if (this.state[id]) {
       const validStack = {
-        pitcher: "milk",
-        cup: "pitcher"
+        pitcher: ["milk"],
+        cup: ["milk"],
+        milk: []
       }
-      return (type === validStack[this.state[id].type])
+      if (inHand.type === "pitcher" && inHand.milk.type != "none") {
+        validStack["cup"].push("pitcher");
+      }
+      return (validStack[this.state[id].type].includes(inHand.type))
     } else {
       return true;
     }
@@ -79,13 +83,13 @@ class Counter extends Component {
   handleClick = (id, e) => {
     if (this.props.itemInHand != null) {
       if (this.state[id] != null) {
-        if (this.validate(id, this.props.itemInHand.type)) {
+        if (this.validate(id, this.props.itemInHand)) {
           console.log("valid stack");
           this.handleStack(id, this.props.itemInHand);
         } else {
           console.log("invalid stack");
         }
-      } else if (this.validate(id, this.props.itemInHand.type)) {
+      } else if (this.validate(id, this.props.itemInHand)) {
         this.setState({[id]: this.props.itemInHand});
         this.props.handleItemPickup(null);
         console.log("cup placed");
@@ -106,6 +110,18 @@ class Counter extends Component {
   
 
   render() {
+    let target0;
+    let pickupHover0;
+    if (this.state.itemHere0 != null) {
+      if (!this.props.itemInHand) {
+        pickupHover0 = "pickupHover";
+      }
+      const Tag0 = components[this.state.itemHere0.type];
+      target0 = <Tag0 cupDisplay={this.state.itemHere0} />
+    } else {
+      pickupHover0 = "";
+      target0 = null;
+    }
     let target1;
     let pickupHover1;
     if (this.state.itemHere1 != null) {
@@ -118,28 +134,16 @@ class Counter extends Component {
       pickupHover1 = "";
       target1 = null;
     }
-    let target2;
-    let pickupHover2;
-    if (this.state.itemHere2 != null) {
-      if (!this.props.itemInHand) {
-        pickupHover2 = "pickupHover";
-      }
-      const Tag2 = components[this.state.itemHere2.type];
-      target2 = <Tag2 cupDisplay={this.state.itemHere2} />
-    } else {
-      pickupHover2 = "";
-      target2 = null;
-    }
     
-    var className1 = (this.state.dropHighlight1) ? 'validDrop' : "";
-    var className2 = (this.state.dropHighlight2) ? 'validDrop' : "";
+    var className0 = (this.state.dropHighlight[0]) ? 'validDrop ' : "";
+    var className1 = (this.state.dropHighlight[1]) ? 'validDrop ' : "";
     return (
       <div className="counter">
+        <div onClick={(e) => this.handleClick("itemHere0", e)} className={'counterTarget0 ' + className0 + pickupHover0}>
+          {target0}
+        </div>
         <div onClick={(e) => this.handleClick("itemHere1", e)} className={'counterTarget1 ' + className1 + pickupHover1}>
           {target1}
-        </div>
-        <div onClick={(e) => this.handleClick("itemHere2", e)} className={'counterTarget2 ' + className2 + pickupHover2}>
-          {target2}
         </div>
       </div>
     )

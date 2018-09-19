@@ -19,10 +19,13 @@ class Syrups extends Component {
   componentDidUpdate = () => {
     this.state.dropHighlight.forEach((value, i) => {
       let dropHighlight = this.state.dropHighlight;
+      let itemHere = this.state["itemHere" + i];
       if (this.props.itemInHand) {
-        if (this.props.itemInHand.type === "cup" && this.state.dropHighlight[i] === false && this.state["itemHere" + i] === null) {
-          dropHighlight[i] = true;
-          this.setState({dropHighlight: dropHighlight});
+        if (this.state.dropHighlight[i] === false) {
+          if (this.validate("itemHere" + i, this.props.itemInHand)) {
+            dropHighlight[i] = true;
+            this.setState({dropHighlight: dropHighlight});
+          }
         }
       } else if (this.state.dropHighlight[i] === true) {
         dropHighlight[i] = false;
@@ -31,19 +34,22 @@ class Syrups extends Component {
     });
   }
 
-  validate = (id, type) => {
+  validate = (id, inHand) => {
     if (this.state[id]) {
       const validStack = {
-        cup: "pitcher"
+        cup: ["milk"]
       }
-      return (type === validStack[this.state[id].type])
+      if (inHand.type === "pitcher" && inHand.milk.type != "none") {
+        validStack["cup"].push("pitcher");
+      }
+      return (validStack[this.state[id].type].includes(inHand.type))
     } else {
       const validPlace = {
         itemHere0: "cup",
         itemHere1: "cup",
         itemHere2: "cup"
       }
-      return (type === validPlace[id])
+      return (inHand.type === validPlace[id])
     }
   }
 
@@ -80,13 +86,13 @@ class Syrups extends Component {
   handleClick = (id, e) => {
     if (this.props.itemInHand != null) {
       if (this.state[id] != null) {
-        if (this.validate(id, this.props.itemInHand.type)) {
+        if (this.validate(id, this.props.itemInHand)) {
           console.log("valid stack");
           this.handleStack(id, this.props.itemInHand);
         } else {
           console.log("invalid stack");
         }
-      } else if (this.validate(id, this.props.itemInHand.type)) {
+      } else if (this.validate(id, this.props.itemInHand)) {
         this.setState({[id]: this.props.itemInHand});
         this.props.handleItemPickup(null);
         console.log("cup placed");
@@ -159,9 +165,9 @@ class Syrups extends Component {
       target2 = null;
     }
     
-    var className0 = (this.state.dropHighlight[0]) ? 'validDrop' : "";
-    var className1 = (this.state.dropHighlight[1]) ? 'validDrop' : "";
-    var className2 = (this.state.dropHighlight[2]) ? 'validDrop' : "";
+    var className0 = (this.state.dropHighlight[0]) ? 'validDrop ' : "";
+    var className1 = (this.state.dropHighlight[1]) ? 'validDrop ' : "";
+    var className2 = (this.state.dropHighlight[2]) ? 'validDrop ' : "";
 
     return (
       <div className="syrups">

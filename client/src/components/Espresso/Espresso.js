@@ -12,62 +12,49 @@ const components = {
 
 class Espresso extends Component {
   state = {
-    dropHighlight1: false,
-    dropHighlight2: false,
-    dropHighlight3: false,
-    dropHighlight4: false,
+    itemHere0: null,
     itemHere1: null,
     itemHere2: null,
     itemHere3: null,
-    itemHere4: null
+    dropHighlight: [false, false, false, false]
   };
 
   componentDidUpdate = () => {
-    if (this.props.itemInHand) {
-      if ((this.props.itemInHand.type === "pitcher" && this.state.dropHighlight1 === false && this.state.itemHere1 === null) || (this.props.itemInHand.type === "milk" && this.state.dropHighlight1 === false && this.state.itemHere1)) {
-        this.setState({dropHighlight1: true});
+    this.state.dropHighlight.forEach((value, i) => {
+      let dropHighlight = this.state.dropHighlight;
+      let itemHere = this.state["itemHere" + i];
+      if (this.props.itemInHand) {
+        if (this.state.dropHighlight[i] === false) {
+          if (this.validate("itemHere" + i, this.props.itemInHand)) {
+            dropHighlight[i] = true;
+            this.setState({dropHighlight: dropHighlight});
+          }
+        }
+      } else if (this.state.dropHighlight[i] === true) {
+        dropHighlight[i] = false;
+        this.setState({dropHighlight: dropHighlight});
       }
-    } else if (this.state.dropHighlight1 === true) {
-      this.setState({dropHighlight1: false});
-    }
-    if (this.props.itemInHand) {
-      if ((this.props.itemInHand.type === "cup" && this.state.dropHighlight2 === false && this.state.itemHere2 === null) || (this.props.itemInHand.type === "pitcher" && this.state.dropHighlight2 === false && this.state.itemHere2)) {
-        this.setState({dropHighlight2: true});
-      }
-    } else if (this.state.dropHighlight2 === true) {
-      this.setState({dropHighlight2: false});
-    }
-    if (this.props.itemInHand) {
-      if ((this.props.itemInHand.type === "cup" && this.state.dropHighlight3 === false && this.state.itemHere3 === null) || (this.props.itemInHand.type === "pitcher" && this.state.dropHighlight3 === false && this.state.itemHere3)) {
-        this.setState({dropHighlight3: true});
-      }
-    } else if (this.state.dropHighlight3 === true) {
-      this.setState({dropHighlight3: false});
-    }
-    if (this.props.itemInHand) {
-      if ((this.props.itemInHand.type === "pitcher" && this.state.dropHighlight4 === false && this.state.itemHere4 === null) || (this.props.itemInHand.type === "milk" && this.state.dropHighlight4 === false && this.state.itemHere4)) {
-        this.setState({dropHighlight4: true});
-      }
-    } else if (this.state.dropHighlight4 === true) {
-      this.setState({dropHighlight4: false});
-    }
+    });
   }
 
-  validate = (id, type) => {
+  validate = (id, inHand) => {
     if (this.state[id]) {
       const validStack = {
-        pitcher: "milk",
-        cup: "pitcher"
+        pitcher: ["milk"],
+        cup: ["milk"]
       }
-      return (type === validStack[this.state[id].type])
+      if (inHand.type === "pitcher" && inHand.milk.type != "none") {
+        validStack["cup"].push("pitcher");
+      }
+      return (validStack[this.state[id].type].includes(inHand.type))
     } else {
       const validPlace = {
-        itemHere1: "pitcher",
+        itemHere0: "pitcher",
+        itemHere1: "cup",
         itemHere2: "cup",
-        itemHere3: "cup",
-        itemHere4: "pitcher"
+        itemHere3: "pitcher"
       }
-      return (type === validPlace[id])
+      return (inHand.type === validPlace[id])
     }
   }
 
@@ -104,13 +91,13 @@ class Espresso extends Component {
   handleClick = (id, e) => {
     if (this.props.itemInHand != null) {
       if (this.state[id] != null) {
-        if (this.validate(id, this.props.itemInHand.type)) {
+        if (this.validate(id, this.props.itemInHand)) {
           console.log("valid stack");
           this.handleStack(id, this.props.itemInHand);
         } else {
           console.log("invalid stack");
         }
-      } else if (this.validate(id, this.props.itemInHand.type)) {
+      } else if (this.validate(id, this.props.itemInHand)) {
         this.setState({[id]: this.props.itemInHand});
         this.props.handleItemPickup(null);
         console.log("cup placed");
@@ -157,6 +144,18 @@ class Espresso extends Component {
   }
 
   render() {
+    let target0;
+    let pickupHover0;
+    if (this.state.itemHere0 != null) {
+      if (!this.props.itemInHand) {
+        pickupHover0 = "pickupHover";
+      }
+      const Tag0 = components[this.state.itemHere1.type];
+      target0 = <Tag0 cupDisplay={this.state.itemHere1} />
+    } else {
+      pickupHover0 = "";
+      target0 = null;
+    }
     let target1;
     let pickupHover1;
     if (this.state.itemHere1 != null) {
@@ -193,54 +192,42 @@ class Espresso extends Component {
       pickupHover3 = "";
       target3 = null;
     }
-    let target4;
-    let pickupHover4;
-    if (this.state.itemHere4 != null) {
-      if (!this.props.itemInHand) {
-        pickupHover4 = "pickupHover";
-      }
-      const Tag4 = components[this.state.itemHere4.type];
-      target4 = <Tag4 cupDisplay={this.state.itemHere4} />
-    } else {
-      pickupHover4 = "";
-      target4 = null;
-    }
     
-    var className1 = (this.state.dropHighlight1) ? 'validDrop' : "";
-    var className2 = (this.state.dropHighlight2) ? 'validDrop' : "";
-    var className3 = (this.state.dropHighlight3) ? 'validDrop' : "";
-    var className4 = (this.state.dropHighlight4) ? 'validDrop' : "";
+    var className0 = (this.state.dropHighlight[0]) ? 'validDrop ' : "";
+    var className1 = (this.state.dropHighlight[1]) ? 'validDrop ' : "";
+    var className2 = (this.state.dropHighlight[2]) ? 'validDrop ' : "";
+    var className3 = (this.state.dropHighlight[3]) ? 'validDrop ' : "";
     return (
       <div className="espresso">
         <img className="espressoImg" src={window.location.origin + "/images/espresso.svg"} />
-        <div onClick={(e) => this.handleClick("itemHere1", e)} className={'steam1 ' + className1 + pickupHover1}>
+        <div onClick={(e) => this.handleClick("itemHere0", e)} className={'steam1 ' + className0 + pickupHover0}>
+          {target0}
+        </div>
+        <div onClick={(e) => this.handleClick("itemHere1", e)} className={'spout1 ' + className1 + pickupHover1}>
           {target1}
         </div>
-        <div onClick={(e) => this.handleClick("itemHere2", e)} className={'spout1 ' + className2 + pickupHover2}>
+        <div onClick={(e) => this.handleClick("itemHere2", e)} className={'spout2 ' + className2 + pickupHover2}>
           {target2}
         </div>
-        <div onClick={(e) => this.handleClick("itemHere3", e)} className={'spout2 ' + className3 + pickupHover3}>
+        <div onClick={(e) => this.handleClick("itemHere3", e)} className={'steam2 ' + className3 + pickupHover3}>
           {target3}
         </div>
-        <div onClick={(e) => this.handleClick("itemHere4", e)} className={'steam2 ' + className4 + pickupHover4}>
-          {target4}
-        </div>
-        <div onClick={(e) => this.steam("itemHere1", "froth", e)} className="frothButton1">
+        <div onClick={(e) => this.steam("itemHere0", "froth", e)} className="frothButton1">
           Froth
         </div>
-        <div onClick={(e) => this.steam("itemHere1", "steam", e)}className="steamButton1">
+        <div onClick={(e) => this.steam("itemHere0", "steam", e)}className="steamButton1">
           Steam
         </div>
-        <div onClick={(e) => this.pullShot("itemHere2", e)} className="shotButton1">
+        <div onClick={(e) => this.pullShot("itemHere1", e)} className="shotButton1">
           Pull Shot
         </div>
-        <div onClick={(e) => this.steam("itemHere4", "froth", e)}className="frothButton2">
+        <div onClick={(e) => this.steam("itemHere3", "froth", e)}className="frothButton2">
           Froth
         </div>
-        <div onClick={(e) => this.steam("itemHere4", "steam", e)} className="steamButton2">
+        <div onClick={(e) => this.steam("itemHere3", "steam", e)} className="steamButton2">
           Steam
         </div>
-        <div onClick={(e) => this.pullShot("itemHere3", e)}className="shotButton2">
+        <div onClick={(e) => this.pullShot("itemHere2", e)}className="shotButton2">
           Pull Shot
         </div>
       </div>

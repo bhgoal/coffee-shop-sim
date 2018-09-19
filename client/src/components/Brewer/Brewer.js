@@ -18,26 +18,30 @@ class Brewer extends Component {
 
   componentDidUpdate = () => {
     if (this.props.itemInHand) {
-      if (this.props.itemInHand.type === "cup" && this.state.dropHighlight === false && this.state.itemHere === null) {
-        this.setState({dropHighlight: true});
+      if (this.state.dropHighlight === false) {
+        if (this.validate("itemHere", this.props.itemInHand)) {
+          this.setState({dropHighlight: true});
+        }
       }
     } else if (this.state.dropHighlight === true) {
       this.setState({dropHighlight: false});
     }
   }
 
-  validate = (id, type) => {
+  validate = (id, inHand) => {
     if (this.state[id]) {
       const validStack = {
-        cup: "pitcher",
-        cup: "milk"
+        cup: ["milk"]
       }
-      return (type === validStack[this.state[id].type])
+      if (inHand.type === "pitcher" && inHand.milk.type != "none") {
+        validStack["cup"].push("pitcher");
+      }
+      return (validStack[this.state[id].type].includes(inHand.type))
     } else {
       const validPlace = {
         itemHere: "cup",
       }
-      return (type === validPlace[id])
+      return (inHand.type === validPlace[id])
     }
   }
 
@@ -73,13 +77,13 @@ class Brewer extends Component {
   handleClick = (id, e) => {
     if (this.props.itemInHand != null) {
       if (this.state[id] != null) {
-        if (this.validate(id, this.props.itemInHand.type)) {
+        if (this.validate(id, this.props.itemInHand)) {
           console.log("valid stack");
           this.handleStack(id, this.props.itemInHand);
         } else {
           console.log("invalid stack");
         }
-      } else if (this.validate(id, this.props.itemInHand.type)) {
+      } else if (this.validate(id, this.props.itemInHand)) {
         this.setState({[id]: this.props.itemInHand});
         this.props.handleItemPickup(null);
         console.log("cup placed");
@@ -124,7 +128,7 @@ class Brewer extends Component {
       pickupHover = "";
       itemHere = null;
     }
-    var className = (this.state.dropHighlight) ? 'validDrop' : "";
+    var className = (this.state.dropHighlight) ? 'validDrop ' : "";
     return (
       <div className="brewer">
         <img className="brewerImg" src={window.location.origin + "/images/brewer.svg"} />

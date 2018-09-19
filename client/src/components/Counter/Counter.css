@@ -5,7 +5,7 @@
     bottom: 0;
 }
 
-.counterTarget1 {
+.counterTarget0 {
     position: absolute;
     bottom: 0;
     left: 2%;
@@ -14,7 +14,7 @@
     width: 100px;
 }
 
-.counterTarget2 {
+.counterTarget1 {
     position: absolute;
     bottom: 0;
     right: 2%;
