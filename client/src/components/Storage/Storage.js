@@ -29,8 +29,8 @@ class Storage extends Component {
     let pickupHover = (this.props.itemInHand) ? "" : "pickupHover";
 
     return (
-      <div className={"storage " + pickupHover}>
-        <div onClick={this.handleClick} className="storageTarget">
+      <div className="storage">
+        <div onClick={this.handleClick} className={"storageTarget " + pickupHover}>
           
         </div>
       </div>

@@ -12,6 +12,7 @@
     line-height: 100px;
     height: 100px;
     width: 30.33%;
+    border-radius: 0.5em;
 }
 
 .syrup1 {
@@ -21,6 +22,7 @@
     line-height: 100px;
     height: 100px;
     width: 30.33%;
+    border-radius: 0.5em;
 }
 
 .syrup2 {
@@ -30,6 +32,7 @@
     line-height: 100px;
     height: 100px;
     width: 30.33%;
+    border-radius: 0.5em;
 }
 
 .syrupButton0 {
@@ -68,18 +71,8 @@
     cursor: pointer;
 }
 
-.syrupButton0:hover {
-    box-shadow: 0 0 20px 2px red;
-}
-.syrupButton1:hover {
-    box-shadow: 0 0 20px 2px red;
-}
-.syrupButton2:hover {
-    box-shadow: 0 0 20px 2px red;
-}
-
-.validDrop {
-    box-shadow: 0 0 20px 8px lightgreen;
+.syrupButton0:hover, .syrupButton1:hover, .syrupButton2:hover {
+    box-shadow: 0 0 3px 1px red, inset 0 0 3px 1px red;
 }
 
 .cupIsHere {

@@ -110,29 +110,23 @@ class Counter extends Component {
   
 
   render() {
-    let target0;
-    let pickupHover0;
+    let target0 = null;
+    let pickupHover0 = "";
     if (this.state.itemHere0 != null) {
       if (!this.props.itemInHand) {
         pickupHover0 = "pickupHover";
       }
       const Tag0 = components[this.state.itemHere0.type];
       target0 = <Tag0 cupDisplay={this.state.itemHere0} />
-    } else {
-      pickupHover0 = "";
-      target0 = null;
     }
-    let target1;
-    let pickupHover1;
+    let target1 = null;
+    let pickupHover1 = "";
     if (this.state.itemHere1 != null) {
       if (!this.props.itemInHand) {
         pickupHover1 = "pickupHover";
       }
       const Tag1 = components[this.state.itemHere1.type];
       target1 = <Tag1 cupDisplay={this.state.itemHere1} />
-    } else {
-      pickupHover1 = "";
-      target1 = null;
     }
     
     var className0 = (this.state.dropHighlight[0]) ? 'validDrop ' : "";

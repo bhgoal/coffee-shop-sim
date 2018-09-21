@@ -144,41 +144,32 @@ class Espresso extends Component {
   }
 
   render() {
-    let target0;
-    let pickupHover0;
+    let target0 = null;
+    let pickupHover0 = "";
     if (this.state.itemHere0 != null) {
       if (!this.props.itemInHand) {
         pickupHover0 = "pickupHover";
       }
       const Tag0 = components[this.state.itemHere1.type];
       target0 = <Tag0 cupDisplay={this.state.itemHere1} />
-    } else {
-      pickupHover0 = "";
-      target0 = null;
     }
-    let target1;
-    let pickupHover1;
+    let target1 = null;
+    let pickupHover1 = "";
     if (this.state.itemHere1 != null) {
       if (!this.props.itemInHand) {
         pickupHover1 = "pickupHover";
       }
       const Tag1 = components[this.state.itemHere1.type];
       target1 = <Tag1 cupDisplay={this.state.itemHere1} />
-    } else {
-      pickupHover1 = "";
-      target1 = null;
     }
-    let target2;
-    let pickupHover2;
+    let target2 = null;
+    let pickupHover2 = "";
     if (this.state.itemHere2 != null) {
       if (!this.props.itemInHand) {
         pickupHover2 = "pickupHover";
       }
       const Tag2 = components[this.state.itemHere2.type];
       target2 = <Tag2 cupDisplay={this.state.itemHere2} />
-    } else {
-      pickupHover2 = "";
-      target2 = null;
     }
     let target3;
     let pickupHover3;

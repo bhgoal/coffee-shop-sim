@@ -12,6 +12,7 @@
     line-height: 100px;
     height: 100px;
     width: 15%;
+    border-radius: 0.5em;
 }
 
 .spout1 {
@@ -21,6 +22,7 @@
     line-height: 100px;
     height: 100px;
     width: 16%;
+    border-radius: 0.5em;
 }
 
 .spout2 {
@@ -30,6 +32,7 @@
     line-height: 100px;
     height: 100px;
     width: 16%;
+    border-radius: 0.5em;
 }
 
 .steam2 {
@@ -39,6 +42,7 @@
     line-height: 100px;
     height: 100px;
     width: 15%;
+    border-radius: 0.5em;
 }
 
 .frothButton1 {
@@ -46,7 +50,7 @@
     font-size: 12px;
     top: 10px;
     left: 5%;
-    background: rgb(255, 0, 0, 0.7);
+    background: rgb(255, 0, 0, 0.6);
     line-height: 30px;
     height: 30px;
     padding: 0 1%;
@@ -59,7 +63,7 @@
     font-size: 12px;
     top: 44px;
     left: 5%;
-    background: rgb(255, 0, 0, 0.7);
+    background: rgb(255, 0, 0, 0.6);
     line-height: 30px;
     height: 30px;
     padding: 0 1%;
@@ -72,7 +76,7 @@
     font-size: 12px;
     top: 10px;
     left: 25%;
-    background: rgb(255, 0, 0, 0.7);
+    background: rgb(255, 0, 0, 0.6);
     line-height: 30px;
     height: 30px;
     padding: 0 1%;
@@ -85,7 +89,7 @@
     font-size: 12px;
     top: 10px;
     right: 5%;
-    background: rgb(255, 0, 0, 0.7);
+    background: rgb(255, 0, 0, 0.6);
     line-height: 30px;
     height: 30px;
     padding: 0 1%;
@@ -98,7 +102,7 @@
     font-size: 12px;
     top: 44px;
     right: 5%;
-    background: rgb(255, 0, 0, 0.7);
+    background: rgb(255, 0, 0, 0.6);
     line-height: 30px;
     height: 30px;
     padding: 0 1%;
@@ -111,7 +115,7 @@
     font-size: 12px;
     top: 10px;
     right: 25%;
-    background: rgb(255, 0, 0, 0.7);
+    background: rgb(255, 0, 0, 0.6);
     line-height: 30px;
     height: 30px;
     padding: 0 1%;
@@ -119,23 +123,9 @@
     cursor: default;
 }
 
-.frothButton1:hover {
-    box-shadow: 0 0 20px 8px red;
-}
-.steamButton1:hover {
-    box-shadow: 0 0 20px 8px red;
-}
-.shotButton1:hover {
-    box-shadow: 0 0 20px 8px red;
-}
-.frothButton2:hover {
-    box-shadow: 0 0 20px 8px red;
-}
-.steamButton2:hover {
-    box-shadow: 0 0 20px 8px red;
-}
-.shotButton2:hover {
-    box-shadow: 0 0 20px 8px red;
+.frothButton1:hover, .steamButton1:hover, .shotButton1:hover, .frothButton2:hover, .steamButton2:hover, .shotButton2:hover {
+    box-shadow: 0 0 3px 1px red, inset 0 0 3px 1px red;
+    cursor: pointer;
 }
 
 .cupIsHere {

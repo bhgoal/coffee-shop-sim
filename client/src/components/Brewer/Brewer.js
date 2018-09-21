@@ -11,7 +11,8 @@ const components = {
 class Brewer extends Component {
   state = {
     dropHighlight: false,
-    itemHere: null,
+    stackHighlight: false,
+    itemHere: null
   };
 
   
@@ -19,37 +20,53 @@ class Brewer extends Component {
   componentDidUpdate = () => {
     if (this.props.itemInHand) {
       if (this.state.dropHighlight === false) {
-        if (this.validate("itemHere", this.props.itemInHand)) {
+        if (this.validate("itemHere", this.props.itemInHand) === "place") {
           this.setState({dropHighlight: true});
+        }
+      }
+      if (this.state.stackHighlight === false) {
+        if (this.validate("itemHere", this.props.itemInHand) === "stack") {
+          this.setState({stackHighlight: true});
         }
       }
     } else if (this.state.dropHighlight === true) {
       this.setState({dropHighlight: false});
+    } else if (this.state.stackHighlight === true) {
+      this.setState({stackHighlight: false});
     }
   }
 
   validate = (id, inHand) => {
     if (this.state[id]) {
       const validStack = {
-        cup: ["milk"]
+        cup: []
+      }
+      if (inHand.type === "milk" && this.state[id].milk.type === "none") {
+        validStack["cup"].push("milk");
       }
       if (inHand.type === "pitcher" && inHand.milk.type != "none") {
         validStack["cup"].push("pitcher");
       }
-      return (validStack[this.state[id].type].includes(inHand.type))
+      if (validStack[this.state[id].type].includes(inHand.type)) {
+        return "stack";
+      }
     } else {
       const validPlace = {
         itemHere: "cup",
       }
-      return (inHand.type === validPlace[id])
+      if (inHand.type === validPlace[id]) {
+        return "place";
+      }
     }
+    return "invalid";
   }
 
   handleStack = (id, inHand) => {
     if (inHand.type === "milk") {
       if (this.state[id].milk.type === "none") {
         this.setState({
-          [id]: {...this.state[id], milk: {type: inHand.milkType, status: "cold"}}
+          [id]: {...this.state[id], milk: {type: inHand.milkType, status: "cold"}},
+          stackHighlight: false
         })
         console.log(`filling cup with ${inHand.milkType} milk...`);
       } else {
@@ -60,7 +77,8 @@ class Brewer extends Component {
       if (this.state[id].milk.type === "none") {
         if (inHand.milk.type != "none") {
           this.setState({
-            [id]: {...this.state[id], milk: inHand.milk}
+            [id]: {...this.state[id], milk: inHand.milk},
+            stackHighlight: false
           })
           console.log("filling cup with pitcher milk");
           this.props.changeInHand({type: "pitcher", id: 0, milk: {type: "none", status: "none"}});
@@ -77,13 +95,13 @@ class Brewer extends Component {
   handleClick = (id, e) => {
     if (this.props.itemInHand != null) {
       if (this.state[id] != null) {
-        if (this.validate(id, this.props.itemInHand)) {
+        if (this.validate(id, this.props.itemInHand) === "stack") {
           console.log("valid stack");
           this.handleStack(id, this.props.itemInHand);
         } else {
           console.log("invalid stack");
         }
-      } else if (this.validate(id, this.props.itemInHand)) {
+      } else if (this.validate(id, this.props.itemInHand) === "place") {
         this.setState({[id]: this.props.itemInHand});
         this.props.handleItemPickup(null);
         console.log("cup placed");
@@ -116,23 +134,21 @@ class Brewer extends Component {
   
 
   render() {
-    let itemHere;
-    let pickupHover;
+    let itemHere = null;
+    let pickupHover = "";
     if (this.state.itemHere != null) {
       if (!this.props.itemInHand) {
         pickupHover = "pickupHover";
       }
       const Tag = components[this.state.itemHere.type];
       itemHere = <Tag cupDisplay={this.state.itemHere} />
-    } else {
-      pickupHover = "";
-      itemHere = null;
     }
     var className = (this.state.dropHighlight) ? 'validDrop ' : "";
+    var stackHighlight = (this.state.stackHighlight) ? 'stackHighlight ' : "";
     return (
       <div className="brewer">
         <img className="brewerImg" src={window.location.origin + "/images/brewer.svg"} />
-        <div onClick={(e) => this.handleClick("itemHere", e)} className={'brewerTarget ' + className + pickupHover}>
+        <div onClick={(e) => this.handleClick("itemHere", e)} className={'brewerTarget ' + className + stackHighlight + pickupHover}>
           {itemHere}
         </div>
         <div onClick={this.dispense}className="dispenseButton">
