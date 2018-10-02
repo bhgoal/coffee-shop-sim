@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import Cup from "../Cup/Cup.js";
 import "./Storage.css";
-
-// The ...props means, spread all of the passed props onto this element
-// That way we don't have to define them all individually
 
 class Storage extends Component {
   state = {

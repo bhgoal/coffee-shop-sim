@@ -39,10 +39,6 @@
     cursor: pointer;
 }
 
-.cupIsHere {
-    background: orange;
-}
-
 .dispenseButton {
     position: absolute;
     bottom: 32%;

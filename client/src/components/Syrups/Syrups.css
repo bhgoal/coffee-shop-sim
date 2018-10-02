@@ -75,13 +75,8 @@
     box-shadow: 0 0 3px 1px red, inset 0 0 3px 1px red;
 }
 
-.cupIsHere {
-    background: orange;
-}
-
 .bottle {
     height: auto;
     width: 30.33%;
     margin: 0 1.5%;
-
 }

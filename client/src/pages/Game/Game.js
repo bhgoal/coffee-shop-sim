@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import SaveBtn from "../../components/SaveBtn";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
 import Brewer from "../../components/Brewer";
 import Counter from "../../components/Counter";
 import Espresso from "../../components/Espresso";
@@ -16,8 +14,7 @@ import Storage from "../../components/Storage";
 import Syrups from "../../components/Syrups";
 import Cup from "../../components/Cup";
 import Auth from '../../auth/Auth.js';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import "./Game.css";
 
 const auth = new Auth();
 let userId;
@@ -33,15 +30,23 @@ class Game extends Component {
     timeRemaining: 60,
     cursorMove: false,
     mouseX: 0,
-    mouseY: 0
+    mouseY: 0,
+    showIntro: false,
+    gameRunning: false
   };
   
   componentDidMount() {
-    //this.loadDrinks();
-    //this.generateOrder();
-    //console.log(this.state.orders);
     this.checkLogin();
+    this.handleIntro("show");
     //setTimeout(this.getUserData, 2000);
+  }
+
+  handleIntro = (action) => {
+    if ((action === "show") && (this.state.showIntro === false)) {
+      this.setState({showIntro: true});
+    } else if ((action === "hide") && (this.state.showIntro === true)) {
+      this.setState({showIntro: false});
+    }
   }
 
   checkLogin = () => {
@@ -99,9 +104,12 @@ class Game extends Component {
   }
 
   startOrders = () => {
-    this.generateOrder();
-    this.interval = setInterval(this.generateOrder, 10000);
-    this.timer = setInterval(this.tick, 1000);
+    if (this.state.gameRunning === false) {
+      this.setState({gameRunning: true});
+      this.generateOrder();
+      this.interval = setInterval(this.generateOrder, 10000);
+      this.timer = setInterval(this.tick, 1000);
+    }
   }
 
   tick = () => {
@@ -109,6 +117,9 @@ class Game extends Component {
   }
 
   stopOrders = () => {
+    if (this.state.gameRunning) {
+      this.setState({gameRunning: false});
+    }
     clearInterval(this.interval);
     clearInterval(this.timer);
   }
@@ -137,6 +148,8 @@ class Game extends Component {
         }
     };
 
+    // Not actual code below, just overview of possible drink orders
+    //
     // possibleDrinks = {
     //   coffee: {
     //     syrup: any,
@@ -334,8 +347,13 @@ class Game extends Component {
       boxShadow: "0 0 1px 2px white"
     }
 
+    const introClass = (this.state.showIntro) ? 'introShow ' : "";
+
     return (
       <Container mouseMove={(e) => {this.setState({mouseX: (e.clientX - 450), mouseY: (e.clientY - 90)}); }}>
+          <div className={'introWrapper ' + introClass}>
+            <div className="intro" onClick={(e) => this.handleIntro("hide", e)}>Welcome to Coffee Shop Sim! In this game, you'll play as a barista, making various coffee and espresso drinks!<br/>Clicking once on an object picks it up in your hand. Then, click on another object to combine what you have in hand with what you clicked on. If you click on an empty space, the item in hand will be placed there.<br/>To create a drink, click on the cups stored below the counter. Place your cup at the coffee brewer or espresso machine, and hit the red button. Next, add syrups or milk to finish the drink.<br/>Click anywhere on this box to close it and begin playing.</div>
+          </div>
           <div style={{width: "24%", minHeight: "100%"}}>
             <div style={styleScore}>Time Left: {this.state.timeRemaining}</div>
             <button style={styleButton} onClick={this.startOrders}>Start</button>
@@ -403,57 +421,3 @@ class Game extends Component {
 }
 
 export default Game;
-
-{/* <Jumbotron>
-              <h1>Orders</h1>
-            </Jumbotron>
-            <Row>
-              <Col size="md-6">
-                Drink
-                <form>
-                  <Input
-                    value={this.state.topic}
-                    onChange={this.handleInputChange}
-                    name="topic"
-                    placeholder="Name (required)"
-                  />
-                  <Input
-                    value={this.state.startYear}
-                    onChange={this.handleInputChange}
-                    name="startYear"
-                    placeholder="Ingredients (required)"
-                  />
-                  <FormBtn
-                    disabled={!(this.state.topic && this.state.startYear)}
-                    onClick={this.handleFormSubmit}
-                  >
-                    Submit Order
-                  </FormBtn>
-                </form>
-              </Col>
-              <Col size="md-6">
-                {this.state.orders.length ? (
-                  <List>
-                    {this.state.orders.map(order => (
-                      <div>{order.name}, {order.ingredients}</div>
-                    ))}
-                     {this.state.articles.slice(0, 5).map(article => (
-                      <ListItem key={article._id}>
-                        <SaveBtn handleSaveArticle={this.handleSaveArticle} article={article} />
-                        <span>
-                            {article.headline.main}
-                        </span><br/>
-                        Published on {article.pub_date}<br/>
-                        <Link to={article.web_url}>
-                          <strong>
-                            {article.web_url}
-                          </strong>
-                        </Link>
-                      </ListItem>
-                    ))}
-                  </List>
-                ) : (
-                  <h3>No Results to Display</h3>
-                )}
-              </Col>
-            </Row> */}

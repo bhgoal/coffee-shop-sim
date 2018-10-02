@@ -1,0 +1,27 @@
+.introWrapper {
+    position: absolute;
+    visibility: hidden;
+    width: 1152px;
+    height: 100%;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.intro {
+    position: absolute;
+    background: white;
+    top: 170px;
+    left: 326px;
+    width: 500px;
+    padding: 0.8em;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+.intro:hover {
+    box-shadow: 0 0 5px 1px white;
+}
+
+.introShow {
+    visibility: visible;
+}
