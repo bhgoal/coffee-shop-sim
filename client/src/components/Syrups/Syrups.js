@@ -79,7 +79,7 @@ class Syrups extends Component {
     if (inHand.type === "milk") {
       if (this.state[id].milk.type === "none") {
         this.setState({
-          [id]: {...this.state[id], milk: {type: "whole", status: "cold"}}
+          [id]: {...this.state[id], milk: {type: inHand.milkType, status: "cold"}}
         })
         console.log(`filling ${this.state[id].type} with fresh milk...`);
       } else {
