@@ -138,9 +138,9 @@ class Syrups extends Component {
     const flavors = ["vanilla", "caramel", "mocha"];
     if (this.state[id] != null && this.state[id].syrup === "none") {
       this.setState({
-        [id]: {...this.state[id], syrup: flavors[parseInt(idNum) - 1]}
+        [id]: {...this.state[id], syrup: flavors[parseInt(idNum)]}
       })
-      console.log(`adding ${flavors[parseInt(idNum) - 1]} syrup`);
+      console.log(`adding ${flavors[parseInt(idNum)]} syrup`);
     } else if (this.state[id] != null && this.state[id].syrup != "none") {
       console.log(`already filled with ${this.state[id].syrup} syrup`);
     } else {
