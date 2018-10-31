@@ -144,14 +144,17 @@ class Espresso extends Component {
   }
 
   render() {
-    let target0 = null;
-    let pickupHover0 = "";
+    let target0;
+    let pickupHover0;
     if (this.state.itemHere0 != null) {
       if (!this.props.itemInHand) {
         pickupHover0 = "pickupHover";
       }
-      const Tag0 = components[this.state.itemHere1.type];
-      target0 = <Tag0 cupDisplay={this.state.itemHere1} />
+      const Tag0 = components[this.state.itemHere0.type];
+      target0 = <Tag0 cupDisplay={this.state.itemHere0} />
+    } else {
+      pickupHover3 = "";
+      target3 = null;
     }
     let target1 = null;
     let pickupHover1 = "";
